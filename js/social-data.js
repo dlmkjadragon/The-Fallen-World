@@ -67,7 +67,7 @@ const socialList = [
     platform: "HoyoLAB",
     username: "Dlmkja Dragon",
     link: "https://www.hoyolab.com/accountCenter/postList?id=31143955",
-    img: "https://static.wikia.nocookie.net/logopedia/images/5/59/HoYoLAB_2.61.0_2024-09-04.png/revision/latest/scale-to-width-down/250?cb=20240904185738",
+    img: "https://upload-os-bbs.hoyolab.com/upload/2023/07/16/243377973/f5275ef0a2a99eb54b58300e08116b18_6417131032773363332.jpg",
     status: "Nothing to be found",
     style: "gradient-left"
   },
