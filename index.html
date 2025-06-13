@@ -35,6 +35,7 @@
 </div>
 
 
+
   <!-- ========== HOME SECTION ========== -->
   <div id="home" class="page-section active">
     
@@ -164,7 +165,7 @@
       <div id="tab-status" class="tab-content">
         <!-- To-Do List -->
         <div class="todo-wrapper">
-          <h3 class="todo-title"></i> TO-DO LIST</h3>
+          <h3 class="todo-title"> TO-DO LIST</h3>
 
           <div class="todo-item">
             <span class="todo-name">@neisy_alexrina</span>
@@ -241,31 +242,48 @@
 
   <!-- ========== ARTS SECTION ========== -->
   <div id="arts" class="page-section">
-    <h2 style="color: white;">Arts Section</h2>
-    <p style="color: white;">Coming soon...</p>
+  <!-- Giống như intro-container ở #home -->
+  <div class="arts-container">
+
+    <!-- Sidebar đặt bên trái -->
+    <div class="arts-left">
+      <div class="arts-sidebar">
+        <button class="sidebar-btn active">Show All</button>
+        <button class="sidebar-btn">Reference Sheet</button>
+        <button class="sidebar-btn">Fullbody</button>
+        <button class="sidebar-btn">Halfbody</button>
+        <button class="sidebar-btn">Bustshot</button>
+        <button class="sidebar-btn">Headshot</button>
+        <button class="sidebar-btn">Uncolored</button>
+        <button class="sidebar-btn">Traditionals</button>
+      </div>
+    </div>
+
+    <!-- Khu vực content tranh -->
+    <div class="art-gallery" id="art-gallery">
+  <!-- Cards sẽ được JS render tại đây -->
+    </div>
+
+
   </div>
+</div>
 
-
+<!-- Art Popup -->
+<div id="art-popup" style="display: none;">
+  <div class="art-popup-content">
+    <button class="art-popup-close" onclick="closeArtPopup()">×</button>
+    <img id="popup-full-img" src="" alt="Full Art">
+    <div class="art-popup-info">
+      <p><strong>Character:</strong> <span id="popup-character"></span></p>
+      <p><strong>Date:</strong> <span id="popup-date"></span></p>
+      <p><strong>Character Belonged To:</strong> <a href="#" id="popup-owner" target="_blank" class="owner-link" style="color: #66ccff;"></a></p>
+    </div>
+  </div>
+</div>
 
   <!-- ========== CHARACTERS SECTION ========== -->
   <div id="characters" class="page-section">
-    <div class="character-gallery">
-      <div class="character-card">
-        <img src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99367988_MQR.png" alt="Bao Yi">
-        <div class="char-name">BAO YI</div>
-        <div class="char-title">The Festival Legend of Cloud</div>
-      </div>
-      <div class="character-card">
-        <img src="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99372442_CY2.jpg" alt="Kai Alexrina">
-        <div class="char-name">KAI ALEXRINA</div>
-        <div class="char-title">The Death Dragon of the Elemental Stone Team</div>
-        <div class="char-icons">
-          <i class="fas fa-dragon"></i>
-          <i class="fas fa-magic"></i>
-          <i class="fas fa-feather-alt"></i>
-        </div>
-      </div>
-    </div>
+    <p style="color: white; text-align: center;">[Character gallery is being redesigned!]</p>
   </div>
 
 
@@ -293,6 +311,13 @@
     <p style="color: white;">Vote for your favorite character!</p>
   </div>
 
+
+  <!-- ===== ERROR FALLBACK ===== -->
+  <div id="error-fallback" style="display:none; padding: 40px; text-align: center; color: #ff4d4d;">
+    <h2>⚠️ Oops!</h2>
+  <p id="error-message">The section you're looking for doesn't exist.</p>
+  </div>
+
   <!-- ========== JAVASCRIPT =========== -->
   <!-- Core & Render Function -->
   <script src="js/core-render.js"></script>
@@ -302,6 +327,9 @@
   <script src="js/music-data.js"></script>
   <script src="js/social-data.js"></script>
   <script src="js/blacklist-data.js"></script>
+
+  <!-- ARTS Data Files -->
+  <script src="js/arts-data.js"></script>
   
   <!-- Main Logic -->
   <script src="js/script.js"></script>
