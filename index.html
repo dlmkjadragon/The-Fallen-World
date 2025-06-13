@@ -277,9 +277,16 @@
 
 <!-- Art Popup -->
 <div id="art-popup" style="display: none;">
+
+  <!-- Hai nút nằm ngoài content -->
+  <button class="popup-nav left" id="prev-art-btn" onclick="showPrevArt()">‹</button>
+  <button class="popup-nav right" id="next-art-btn" onclick="showNextArt()">›</button>
+
   <div class="art-popup-content">
     <button class="art-popup-close" onclick="closeArtPopup()">×</button>
     <img id="popup-full-img" src="" alt="Full Art">
+
+
     <div class="art-popup-info">
       <p><strong>Character:</strong> <span id="popup-character"></span></p>
       <p><strong>Date:</strong> <span id="popup-date"></span></p>
