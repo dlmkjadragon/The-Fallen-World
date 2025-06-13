@@ -1344,6 +1344,43 @@ mark {
   font-family: 'Georgia', serif;
 }
 
+.popup-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 100vh;
+  font-size: 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 10000; /* cao hơn cả popup */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.popup-nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.popup-nav.left {
+  left: 0;
+}
+
+.popup-nav.right {
+  right: 0;
+}
+
+.popup-nav:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+
+
 .owner-link {
   text-decoration: none;          
   color: #66ccff;
@@ -1362,3 +1399,4 @@ mark {
 .owner-link:hover {
   color: #ffffff;
 }
+
