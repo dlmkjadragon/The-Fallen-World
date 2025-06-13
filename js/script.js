@@ -19,7 +19,12 @@ function showSection(id) {
   const activeLink = Array.from(links).find(link => link.getAttribute('onclick')?.includes(id));
   if (activeLink) activeLink.classList.add('active');
 
-  if (id === "arts") renderArtsSection();
+  if (id === "arts") {
+  currentArtCategory = "Show All";
+  filteredArtsData = [...sortedArtsData];
+  renderArtsSection();
+}
+
 }
 
 
@@ -515,6 +520,9 @@ function showErrorFallback(message) {
 }
 
 let currentArtCategory = "Show All";
+let currentArtIndex = -1;
+let sortedArtsData = [];
+let filteredArtsData = [];
 
 function renderArtsSection() {
   const container = document.getElementById("art-gallery");
@@ -522,9 +530,12 @@ function renderArtsSection() {
 
   container.innerHTML = "";
 
-  const sortedArts = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  filteredArtsData = sortedArtsData.filter(art =>
+  currentArtCategory === "Show All" || art.category === currentArtCategory
+);
 
-   sortedArts.forEach(art => {
+   filteredArtsData.forEach(art => {
     container.insertAdjacentHTML("beforeend", `
       <div class="art-card" data-category="${art.category}">
         <img src="${art.image}" alt="${art.alt}" loading="lazy">
@@ -566,6 +577,9 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const category = btn.textContent.trim();
       currentArtCategory = category;
+      filteredArtsData = sortedArtsData.filter(art =>
+      currentArtCategory === "Show All" || art.category === currentArtCategory
+    );
 
     document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
@@ -584,6 +598,9 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
 });
 
 function showArtPopup(art) {
+  const index = filteredArtsData.findIndex(a => a.fullImage === (art.fullImage || art.image));
+  currentArtIndex = index;
+
   const fullImg = document.getElementById("popup-full-img");
   fullImg.src = art.fullImage || art.image;
   fullImg.onload = () => {
@@ -592,24 +609,53 @@ function showArtPopup(art) {
 
   document.getElementById("popup-character").textContent = art.character || "Unnamed";
   document.getElementById("popup-date").textContent = art.date || "???";
-  
+
   const owner = art.owner;
+  const ownerLink = document.getElementById("popup-owner");
   if (owner && owner.name && owner.link) {
-    const ownerLink = document.getElementById("popup-owner");
     ownerLink.href = owner.link;
     ownerLink.textContent = owner.name;
   } else {
-    document.getElementById("popup-owner").textContent = "Unknown";
-    document.getElementById("popup-owner").removeAttribute("href");
+    ownerLink.textContent = "Unknown";
+    ownerLink.removeAttribute("href");
   }
-  
+
+  document.getElementById("prev-art-btn").disabled = index <= 0;
+  document.getElementById("next-art-btn").disabled = index >= filteredArtsData.length - 1;
+
   document.getElementById("art-popup").style.display = "flex";
 }
+
+
+function showPrevArt() {
+  if (currentArtIndex > 0) {
+    currentArtIndex--;
+    showArtPopup(filteredArtsData[currentArtIndex]);
+  }
+}
+
+function showNextArt() {
+  if (currentArtIndex < artsData.length - 1) {
+    currentArtIndex++;
+    showArtPopup(filteredArtsData[currentArtIndex]);
+  }
+}
+
+
 
 
 function closeArtPopup() {
   document.getElementById("art-popup").style.display = "none";
 }
+
+document.querySelectorAll(".sidebar-btn").forEach(b => {
+  const category = b.textContent.trim();
+  if (category === currentArtCategory) {
+    b.classList.add("active");
+  } else {
+    b.classList.remove("active");
+  }
+});
 
 function adjustCloseButtonColor(img) {
   const canvas = document.createElement("canvas");
