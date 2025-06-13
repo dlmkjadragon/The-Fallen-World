@@ -2,17 +2,26 @@ function showSection(id) {
   console.log("Switching to section:", id);
   const sections = document.querySelectorAll('.page-section');
   sections.forEach(section => section.classList.remove('active'));
+
   const selected = document.getElementById(id);
   if (selected) {
     selected.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const fallback = document.getElementById('error-fallback');
+    if (fallback) fallback.style.display = 'none';
+  } else {
+    showErrorFallback(`Section "${id}" not found.`);
   }
+
   const links = document.querySelectorAll('.navbar a');
   links.forEach(link => link.classList.remove('active'));
   const activeLink = Array.from(links).find(link => link.getAttribute('onclick')?.includes(id));
   if (activeLink) activeLink.classList.add('active');
-  
+
+  if (id === "arts") renderArtsSection();
 }
+
 
 function switchTab(tabId) {
   const tabs = document.querySelectorAll('.tab-content');
@@ -113,6 +122,7 @@ function switchTab(tabId) {
     `
   });
 }
+
 
 }
 
@@ -348,6 +358,7 @@ function nextFriend3D() {
 
 document.addEventListener("DOMContentLoaded", function () {
   renderFriendCarousel(); 
+  showSection('home');
 });
 
 
@@ -490,3 +501,149 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock(); // initial call
+
+function showErrorFallback(message) {
+  const fallback = document.getElementById('error-fallback');
+  const msgBox = document.getElementById('error-message');
+  if (!fallback || !msgBox) return;
+
+  const sections = document.querySelectorAll('.page-section');
+  sections.forEach(section => section.classList.remove('active'));
+
+  fallback.style.display = 'block';
+  msgBox.textContent = message;
+}
+
+let currentArtCategory = "Show All";
+
+function renderArtsSection() {
+  const container = document.getElementById("art-gallery");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const sortedArts = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+   sortedArts.forEach(art => {
+    container.insertAdjacentHTML("beforeend", `
+      <div class="art-card" data-category="${art.category}">
+        <img src="${art.image}" alt="${art.alt}" loading="lazy">
+        <div class="art-title">${art.title}</div>
+      </div>
+    `);
+      const lastCard = container.lastElementChild;
+
+      const shouldShow = currentArtCategory === "Show All" || art.category === currentArtCategory;
+      lastCard.style.display = shouldShow ? "" : "none";
+
+      lastCard.addEventListener("click", () => {
+      showArtPopup(art);
+  });
+  });
+
+  const cards = container.querySelectorAll(".art-card");
+  cards.forEach(card => {
+    const cardCategory = card.getAttribute("data-category");
+    if (currentArtCategory === "Show All" || cardCategory === currentArtCategory) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+
+  document.querySelectorAll(".sidebar-btn").forEach(b => {
+    const category = b.textContent.trim();
+    if (category === currentArtCategory) {
+      b.classList.add("active");
+    } else {
+      b.classList.remove("active");
+    }
+  });
+}
+
+
+document.querySelectorAll(".sidebar-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const category = btn.textContent.trim();
+      currentArtCategory = category;
+
+    document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const cards = document.querySelectorAll(".art-card");
+
+    cards.forEach(card => {
+      const cardCategory = card.getAttribute("data-category");
+      if (category === "Show All" || cardCategory === category) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
+});
+
+function showArtPopup(art) {
+  const fullImg = document.getElementById("popup-full-img");
+  fullImg.src = art.fullImage || art.image;
+  fullImg.onload = () => {
+    adjustCloseButtonColor(fullImg);
+  };
+
+  document.getElementById("popup-character").textContent = art.character || "Unnamed";
+  document.getElementById("popup-date").textContent = art.date || "???";
+  
+  const owner = art.owner;
+  if (owner && owner.name && owner.link) {
+    const ownerLink = document.getElementById("popup-owner");
+    ownerLink.href = owner.link;
+    ownerLink.textContent = owner.name;
+  } else {
+    document.getElementById("popup-owner").textContent = "Unknown";
+    document.getElementById("popup-owner").removeAttribute("href");
+  }
+  
+  document.getElementById("art-popup").style.display = "flex";
+}
+
+
+function closeArtPopup() {
+  document.getElementById("art-popup").style.display = "none";
+}
+
+function adjustCloseButtonColor(img) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  let r = 0, g = 0, b = 0;
+  const length = data.length / 4;
+
+  for (let i = 0; i < data.length; i += 4) {
+    r += data[i];
+    g += data[i + 1];
+    b += data[i + 2];
+  }
+
+  r /= length;
+  g /= length;
+  b /= length;
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  const closeBtn = document.querySelector(".art-popup-close");
+  closeBtn.style.color = brightness > 140 ? "#111" : "#fff";
+}
+
+document.getElementById("art-popup").addEventListener("click", function (e) {
+  // Nếu click đúng vào phần nền tối (không phải ảnh hoặc nội dung)
+  if (e.target === this) {
+    closeArtPopup();
+  }
+});
