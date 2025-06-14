@@ -1243,10 +1243,12 @@ mark {
   flex-shrink: 1;
   flex-basis: 0;
   max-width: calc(100% - 240px);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 
 .art-card {
-  width: 200px;
+  width: 195px;
   background: #1c1c24;
   border: 2px solid #444;
   border-radius: 10px;
