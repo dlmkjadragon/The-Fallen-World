@@ -1161,11 +1161,13 @@ body {
 /* ===================== SEARCH ENGINE ===================== */
 
 mark {
-  background-color: #66ccff;
+  background: linear-gradient(to right, #66ccff, #8affc1);
   color: #000;
-  padding: 0 2px;
-  border-radius: 3px;
+  padding: 0 3px;
+  border-radius: 4px;
+  font-weight: bold;
 }
+
 
 /* ===================== ART SIDEBAR ===================== */
     
@@ -1297,6 +1299,51 @@ mark {
   flex-shrink: 0;
 }
 
+.arts-pagination-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(20, 20, 20, 0.8);
+  box-shadow: 0 0 10px rgba(0, 206, 209, 0.3);
+  border: 1px solid #333;
+  backdrop-filter: blur(4px);
+}
+
+.arts-pagination-controls button {
+  background: linear-gradient(to right, #00ced1, #66ccff);
+  border: none;
+  color: #001f2f;
+  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Georgia', serif;
+}
+
+.arts-pagination-controls button:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.4);
+}
+
+.arts-pagination-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  box-shadow: none;
+}
+
+.arts-pagination-controls span {
+  color: #b0e0e6;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+
 
 /* ===================== ART POPUP ===================== */
 
@@ -1305,10 +1352,14 @@ mark {
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  vertical-align: middle;
 }
+
+
 
 .art-popup-content {
   background: #1a1a1a;
@@ -1319,7 +1370,10 @@ mark {
   overflow: auto;
   position: relative;
   text-align: center;
+  display: inline-block;
 }
+
+
 
 .art-popup-close {
   position: absolute;
@@ -1380,6 +1434,8 @@ mark {
   opacity: 0.2;
   cursor: not-allowed;
 }
+
+
 
 
 
