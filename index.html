@@ -11,6 +11,7 @@
   <meta property="og:title" content="Legendary World">
   <meta property="og:description" content="Welcome to Neisy's personal website xD">
   <meta property="og:image" content="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99367988_MQR.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta property="og:type" content="website">
 
 </head>
@@ -29,7 +30,6 @@
     <a onclick="showSection('characters')"><i class="fas fa-dragon"></i><span>Characters</span></a>
     <a onclick="showSection('story')"><i class="fas fa-book-quran"></i><span>Story</span></a>
     <a onclick="showSection('video')"><i class="fas fa-photo-film"></i><span>Video</span></a>
-    <a onclick="showSection('forum')"><i class="fas fa-pen-to-square"></i><span>Forum</span></a>
     <a onclick="showSection('favorite')"><i class="fas fa-square-poll-vertical"></i><span>Favorite Vote</span></a>
   </div>
 
@@ -251,7 +251,7 @@
   <div id="arts" class="page-section">
   <!-- Giống như intro-container ở #home -->
   <div class="arts-container">
-
+    <input type="text" id="arts-search" class="search-input" placeholder="Search artworks by title, character, or owner..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
     <!-- Sidebar đặt bên trái -->
     <div class="arts-left">
       <div class="arts-sidebar">
@@ -266,14 +266,16 @@
         <button class="sidebar-btn">Background</button>
       </div>
     </div>
-
+    
     <!-- Khu vực content tranh -->
     <div class="art-gallery" id="art-gallery">
   <!-- Cards sẽ được JS render tại đây -->
     </div>
+   
 
-
+   <div id="arts-pagination" class="arts-pagination-controls"></div>
   </div>
+
 </div>
 
 <!-- Art Popup -->
@@ -297,9 +299,13 @@
 </div>
 
   <!-- ========== CHARACTERS SECTION ========== -->
-  <div id="characters" class="page-section">
-    <p style="color: white; text-align: center;">[Character gallery is being redesigned!]</p>
-  </div>
+  <div id="tab-characters" class="tab-content">
+  <h2>Characters</h2>
+  <iframe src="https://toyhou.se/Neisy/characters" 
+          width="100%" height="800" frameborder="0"
+          style="border-radius: 12px; overflow: hidden;"></iframe>
+</div>
+
 
 
   <!-- ========== STORY SECTION ========== -->
@@ -314,11 +320,6 @@
     <p style="color: white;">Coming soon...</p>
   </div>
 
-  <!-- ========== FORUM SECTION ========== -->
-  <div id="forum" class="page-section">
-    <h2 style="color: white;">Forum</h2>
-    <p style="color: white;">Coming soon...</p>
-  </div>
 
   <!-- ========== VOTE SECTION ========== -->
   <div id="favorite" class="page-section">
