@@ -1,5 +1,48 @@
 const artsData = [
   {
+    title: "Yun!",
+    image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952613/IMG_4583_whfsg0.png",
+    fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952613/IMG_4583_whfsg0.png",
+    alt: "Yun",
+    category: "Headshot",
+    character: "Mono",
+    date: "2021-07-10",
+    owner: {
+      name: "Dragonix Wolfi",
+      link: "https://www.instagram.com/wilof_dr/"
+    }
+  },
+
+  {
+    title: "Midnight Wolgan!",
+    image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952612/IMG_4585_oydwog.png",
+    fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952612/IMG_4585_oydwog.png",
+    alt: "Muddy",
+    category: "Bustshot",
+    character: "Midnight Moon",
+    date: "2021-07-14",
+    owner: {
+      name: "Muddy Wolgan",
+      link: "https://toyhou.se/MuddyWolgan"
+    }
+  },
+
+  {
+    title: "Birdy!",
+    image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952612/IMG_4584_ca0pie.png",
+    fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749952612/IMG_4584_ca0pie.png",
+    alt: "Bluuw",
+    category: "Halfbody",
+    character: "Bluuw",
+    date: "2021-07-12",
+    owner: {
+      name: "Glitch Fellow",
+      link: "https://toyhou.se/GlitchFellow101"
+    }
+  },
+  
+  
+  {
     title: "Reisune in Spirit Shrine",
     image: "https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/100495178_uEZ_33169187.png?1747570890",
     fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749863530/Kh%C3%B4ng_C%C3%B3_Ti%C3%AAu_%C4%90%E1%BB%81122_20250518190753_hyz5q1.png",
@@ -796,4 +839,258 @@ const artsData = [
       link: "https://www.instagram.com/cheryl_dog6168/"
     }
   },
+  
+  {
+  title: "Mhm",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749955486/sublkm7d0spr86j0noty.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749955486/sublkm7d0spr86j0noty.png",
+  alt: "???",
+  category: "Headshot",
+  character: "???",
+  date: "2022-03-22",
+  owner: {
+    name: "Marbyissad",
+    link: "https://www.instagram.com/p/CbZVqLWvPrs/?img_index=1"
+  }
+},
+
+{
+  title: "For Cumk",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/ki220jtpbpe5mqq8wrzy.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/ki220jtpbpe5mqq8wrzy.png",
+  alt: "Mint",
+  category: "Bustshot",
+  character: "Mint",
+  date: "2022-09-03",
+  owner: {
+    name: "Cumk",
+    link: "https://toyhou.se/Cumk"
+  }
+},
+
+{
+  title: "For Drixii",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/rjjgsdfdlmg7vgt2sade.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/rjjgsdfdlmg7vgt2sade.png",
+  alt: "Rei",
+  category: "Headshot",
+  character: "Rei",
+  date: "2022-07-21",
+  owner: {
+    name: "Hydrixii",
+    link: "https://www.instagram.com/hydrixii/"
+  }
+},
+
+{
+  title: "For SirBurnt",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/ckqcxdmmbdogof0fa2w1.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/ckqcxdmmbdogof0fa2w1.png",
+  alt: "Kangaroop",
+  category: "Bustshot",
+  character: "Kangaroop",
+  date: "2022-07-14",
+  owner: {
+    name: "Sir Burnt",
+    link: "https://www.instagram.com/sir_burnt/"
+  }
+},
+
+{
+  title: "Fanart for Terenry",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/npkdsib5tggewcg3wcwf.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/npkdsib5tggewcg3wcwf.png",
+  alt: "Aisu & Zui",
+  category: "Halfbody",
+  character: "Aisu & Zui",
+  date: "2022-05-01",
+  owner: {
+    name: "Terenry",
+    link: "https://toyhou.se/Terenry"
+  }
+},
+
+{
+  title: "For Trick",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/oelzwrlckyvsjrzrlh1k.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959761/oelzwrlckyvsjrzrlh1k.png",
+  alt: "Trick",
+  category: "Headshot",
+  character: "Trick",
+  date: "2022-06-10",
+  owner: {
+    name: "Trick",
+    link: "https://www.facebook.com/margaret.ngwyzn"
+  }
+},
+
+{
+  title: "Fanart for Azuma",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959762/xpjmezrzofyt1x6cmjxu.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959762/xpjmezrzofyt1x6cmjxu.png",
+  alt: "Mocha's Mother",
+  category: "Bustshot",
+  character: "Mocha's Mother",
+  date: "2022-05-03",
+  owner: {
+    name: "Azuma Minatsu",
+    link: "https://x.com/azuma_m"
+  }
+},
+
+{
+  title: "Fanart for DW",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959762/jvqosdvgi8tte61hpnml.jpg",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959762/jvqosdvgi8tte61hpnml.jpg",
+  alt: "Mono",
+  category: "Traditionals",
+  character: "Mono",
+  date: "2022-05-03",
+  owner: {
+    name: "Dragonix Wolfi",
+    link: "https://www.instagram.com/wilof_dr/"
+  }
+},
+
+{
+  title: "Trade with Yan",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959763/odidfp2h6nkd7hzxv0i9.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959763/odidfp2h6nkd7hzxv0i9.png",
+  alt: "White Crow",
+  category: "Bustshot",
+  character: "White Crow",
+  date: "2022-10-01",
+  owner: {
+    name: "Yan",
+    link: "https://www.instagram.com/yan_mochi/"
+  }
+},
+
+{
+  title: "Mhmm",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959764/eocf7v7wu4gcj37dx7eu.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749959764/eocf7v7wu4gcj37dx7eu.png",
+  alt: "None",
+  category: "Traditionals",
+  character: "None",
+  date: "2022-12-28",
+  owner: {
+    name: "None",
+    link: "None"
+  }
+},
+
+{
+  title: "Bloodmoon Events",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960576/qneojpjvmb5ufbx9oblb.jpg",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960576/qneojpjvmb5ufbx9oblb.jpg",
+  alt: "Dlmkja Alexrina",
+  category: "Halfbody",
+  character: "Dlmkja Alexrina",
+  date: "2023-02-12",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Neisy Alexrina",
+  image: "https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99334248_FAz.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960579/cygopmxnkil11u4rpluk.png",
+  alt: "Neisy Alexrina",
+  category: "Reference Sheet",
+  character: "Neisy Alexrina",
+  date: "2023-01-14",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Neisy Art",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960578/gdk0alqexbxa9swhw5n9.jpg",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960578/gdk0alqexbxa9swhw5n9.jpg",
+  alt: "Neisy Alexrina",
+  category: "Traditionals",
+  character: "Neisy Alexrina",
+  date: "2023-05-27",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Elanie Art",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960584/uoiygym1fwxexcvhztko.jpg",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960584/uoiygym1fwxexcvhztko.jpg",
+  alt: "Elanie Alexrina",
+  category: "Traditionals",
+  character: "Elanie Alexrina",
+  date: "2023-01-04",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Bloodmoon Events",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960577/iuwucuto0z1cr09el7re.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960577/iuwucuto0z1cr09el7re.png",
+  alt: "Freezeira Alexrina",
+  category: "Halfbody",
+  character: "Freezeira Alexrina",
+  date: "2023-01-06",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Neisy's First Debut",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960577/t2ypzizfnjp7gehq2uwr.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960577/t2ypzizfnjp7gehq2uwr.png",
+  alt: "Neisy Alexrina",
+  category: "Bustshot",
+  character: "Neisy Alexrina",
+  date: "2023-01-11",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "2023 New Year",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960757/Kh%C3%B4ng_C%C3%B3_Ti%C3%AAu_%C4%90%E1%BB%8121_20230102203617_i0best.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960757/Kh%C3%B4ng_C%C3%B3_Ti%C3%AAu_%C4%90%E1%BB%8121_20230102203617_i0best.png",
+  alt: "Dlmkja Alexrina",
+  category: "Fullbody",
+  character: "Dlmkja Alexrina",
+  date: "2023-01-03",
+  owner: {
+    name: "Neisy",
+    link: "https://toyhou.se/Neisy"
+  }
+},
+
+{
+  title: "Trade with Noora",
+  image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960751/Kh%C3%B4ng_C%C3%B3_Ti%C3%AAu_%C4%90%E1%BB%8166_%C4%90%C3%A3_kh%C3%B4i_ph%E1%BB%A5c_%C4%90%C3%A3_kh%C3%B4i_ph%E1%BB%A5c_20230629191840_vquyoj.png",
+  fullImage: "https://res.cloudinary.com/dh5ovya91/image/upload/v1749960751/Kh%C3%B4ng_C%C3%B3_Ti%C3%AAu_%C4%90%E1%BB%8166_%C4%90%C3%A3_kh%C3%B4i_ph%E1%BB%A5c_%C4%90%C3%A3_kh%C3%B4i_ph%E1%BB%A5c_20230629191840_vquyoj.png",
+  alt: "Sharpstar",
+  category: "Halfbody",
+  character: "Sharpstar",
+  date: "2023-06-29",
+  owner: {
+    name: "Noora Noodia",
+    link: "https://toyhou.se/NoodleNoora"
+  }
+},
+
 ];
+
