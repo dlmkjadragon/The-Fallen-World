@@ -429,6 +429,62 @@ document.addEventListener("input", function (e) {
 });
 
 
+document.addEventListener("input", function (e) {
+  if (e.target.id !== "arts-search") return;
+
+  const query = e.target.value.trim().toLowerCase();
+  const container = document.getElementById("art-gallery");
+  const pagination = document.getElementById("arts-pagination");
+
+  if (!container) return;
+
+  if (query === "") {
+    currentArtPage = 1;
+    renderArtsSection();
+    pagination.style.display = "flex";
+    return;
+  }
+
+  currentArtPage = 1;
+  container.innerHTML = "";
+
+  filteredArtsData = sortedArtsData.filter(art => {
+  const inCategory = currentArtCategory === "Show All" || art.category === currentArtCategory;
+
+  const title = art.title?.toLowerCase() || "";
+  const character = art.character?.toLowerCase() || "";
+  const owner = art.owner?.name?.toLowerCase() || "";
+
+  const matchesSearch = title.includes(query) || character.includes(query) || owner.includes(query);
+
+  return inCategory && matchesSearch;
+});
+
+if (filteredArtsData.length === 0) {
+  container.innerHTML = `<p style="color: #bbb; font-style: italic;">No artworks found.</p>`;
+  pagination.style.display = "none";
+  return;
+}
+  
+
+    filteredArtsData.forEach(art => {
+    container.insertAdjacentHTML("beforeend", `
+      <div class="art-card"
+        data-category="${art.category}"
+        data-title="${art.title}"
+        data-character="${art.character}"
+        data-owner="${art.owner?.name || ''}">
+        <img src="${art.image}" alt="${art.alt}" loading="lazy">
+        <div class="art-title">${highlight(art.title, query)}</div>
+      </div>
+    `);
+
+    const lastCard = container.lastElementChild;
+    lastCard.addEventListener("click", () => showArtPopup(art));
+  });
+
+  pagination.style.display = "none";
+});
 
 
 function setupMusicListeners() {
@@ -523,6 +579,9 @@ let currentArtCategory = "Show All";
 let currentArtIndex = -1;
 let sortedArtsData = [];
 let filteredArtsData = [];
+let currentArtPage = 1;
+const artsPerPage = 50;
+let currentVisibleArts = [];
 
 function renderArtsSection() {
   const container = document.getElementById("art-gallery");
@@ -532,69 +591,99 @@ function renderArtsSection() {
 
   sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
   filteredArtsData = sortedArtsData.filter(art =>
-  currentArtCategory === "Show All" || art.category === currentArtCategory
-);
+    currentArtCategory === "Show All" || art.category === currentArtCategory
+  );
+  const totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
+  if (currentArtPage > totalPages) {
+    currentArtPage = 1;
+}
 
-   filteredArtsData.forEach(art => {
+  const start = (currentArtPage - 1) * artsPerPage;
+  const end = start + artsPerPage;
+  const currentPageData = filteredArtsData.slice(start, end);
+  currentVisibleArts = currentPageData;
+
+
+  currentPageData.forEach(art => {
     container.insertAdjacentHTML("beforeend", `
-      <div class="art-card" data-category="${art.category}">
+      <div class="art-card"
+        data-category="${art.category}"
+        data-title="${art.title}"
+        data-character="${art.character}"
+        data-owner="${art.owner?.name || ''}">
         <img src="${art.image}" alt="${art.alt}" loading="lazy">
         <div class="art-title">${art.title}</div>
       </div>
     `);
-      const lastCard = container.lastElementChild;
 
-      const shouldShow = currentArtCategory === "Show All" || art.category === currentArtCategory;
-      lastCard.style.display = shouldShow ? "" : "none";
-
-      lastCard.addEventListener("click", () => {
+    const lastCard = container.lastElementChild;
+    lastCard.addEventListener("click", () => {
       showArtPopup(art);
-  });
-  });
-
-  const cards = container.querySelectorAll(".art-card");
-  cards.forEach(card => {
-    const cardCategory = card.getAttribute("data-category");
-    if (currentArtCategory === "Show All" || cardCategory === currentArtCategory) {
-      card.style.display = "";
-    } else {
-      card.style.display = "none";
-    }
+    });
   });
 
-  document.querySelectorAll(".sidebar-btn").forEach(b => {
-    const category = b.textContent.trim();
-    if (category === currentArtCategory) {
-      b.classList.add("active");
-    } else {
-      b.classList.remove("active");
-    }
-  });
+  renderPaginationControls();
+}
+
+function renderPaginationControls() {
+  const pagination = document.getElementById("arts-pagination");
+  if (!pagination) return;
+
+  let totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
+  if (totalPages === 0) totalPages = 1;
+  pagination.innerHTML = "";
+
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "← Previous";
+  prevBtn.disabled = currentArtPage === 1;
+  prevBtn.onclick = () => {
+    currentArtPage--;
+    renderArtsSection();
+  };
+
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next →";
+  nextBtn.disabled = currentArtPage === totalPages;
+  nextBtn.onclick = () => {
+    currentArtPage++;
+    renderArtsSection();
+  };
+
+  const pageInfo = document.createElement("span");
+  pageInfo.textContent = `Page ${currentArtPage} of ${totalPages}`;
+  pageInfo.style.margin = "0 12px";
+  pageInfo.style.color = "#b0e0e6";
+
+  pagination.appendChild(prevBtn);
+  pagination.appendChild(pageInfo);
+  pagination.appendChild(nextBtn);
 }
 
 
 document.querySelectorAll(".sidebar-btn").forEach(btn => {
   btn.addEventListener("click", () => {
-    const category = btn.textContent.trim();
-      currentArtCategory = category;
-      filteredArtsData = sortedArtsData.filter(art =>
-      currentArtCategory === "Show All" || art.category === currentArtCategory
-    );
+  const category = btn.textContent.trim();
+  currentArtCategory = category;
+  currentArtPage = 1;
 
-    document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  filteredArtsData = sortedArtsData.filter(art =>
+    currentArtCategory === "Show All" || art.category === currentArtCategory
+  );
 
-    const cards = document.querySelectorAll(".art-card");
+  renderArtsSection();
+  
 
-    cards.forEach(card => {
-      const cardCategory = card.getAttribute("data-category");
-      if (category === "Show All" || cardCategory === category) {
-        card.style.display = "";
-      } else {
-        card.style.display = "none";
-      }
-    });
-  });
+  const searchInput = document.getElementById("arts-search");
+  if (searchInput && searchInput.value.trim() !== "") {
+    const event = new Event("input", { bubbles: true });
+    searchInput.dispatchEvent(event);
+  }
+
+  document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+});
+
 });
 
 function showArtPopup(art) {
@@ -693,3 +782,8 @@ document.getElementById("art-popup").addEventListener("click", function (e) {
     closeArtPopup();
   }
 });
+
+function highlight(text, keyword) {
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
