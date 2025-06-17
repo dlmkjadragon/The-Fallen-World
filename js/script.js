@@ -580,7 +580,7 @@ let currentArtIndex = -1;
 let sortedArtsData = [];
 let filteredArtsData = [];
 let currentArtPage = 1;
-const artsPerPage = 50;
+const artsPerPage = 10;
 let currentVisibleArts = [];
 
 function renderArtsSection() {
