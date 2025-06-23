@@ -3,7 +3,7 @@
 @keyframes flyUpFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(60px);
   }
   100% {
     opacity: 1;
@@ -73,6 +73,211 @@
   background: linear-gradient(#00ced1, #66ccff);
 }
 
+
+/* ===================== LOADING ===================== */
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #000;
+}
+
+#loading-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.loading-lower-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.loading-frame {
+  width: 100vw;
+  padding: 25px 60px;
+  background: radial-gradient(circle at center,rgba(0, 255, 255, 0.08),rgba(0, 0, 0, 0.6));
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.15), inset 0 -4px 12px rgba(0, 255, 255, 0.2);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.loading-bar-glow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 300px;
+  height: 6px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #fff, transparent 70%);
+  opacity: 0.3;
+  filter: blur(6px);
+}
+
+.loading-text-zone {
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+  letter-spacing: 5px;
+  margin-bottom: 12px;
+}
+
+#loading-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-start;
+}
+
+.loading-word {
+  font-size: 20px;
+}
+
+.loading-dots span {
+  font-size: 18px;
+  color: white;
+  animation: bounce 1.2s infinite;
+  display: inline-block;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+.loading-dots span:nth-child(4) { animation-delay: 0.6s; }
+.loading-dots span:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  position: relative;
+  margin-top: 20px;
+  overflow: visible; 
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #ffffff, #00ffff);
+  transition: width 0.1s ease;
+}
+
+.progress-dot {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.star-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/616/616489.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: spinStar 3s linear infinite;
+  will-change: transform;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+
+@keyframes spinStar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.progress-dot .sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: sparkleOut 1s ease-out infinite;
+  filter: blur(1px);
+}
+
+.progress-dot .sparkle:nth-child(1) {
+  top: 10%;
+  left: 90%;
+  animation-delay: 0s;
+}
+
+.progress-dot .sparkle:nth-child(2) {
+  top: 50%;
+  left: 110%;
+  animation-delay: 0.3s;
+}
+
+.progress-dot .sparkle:nth-child(3) {
+  top: 80%;
+  left: 95%;
+  animation-delay: 0.6s;
+}
+
+@keyframes sparkleOut {
+  0% {
+    transform: scale(0.8) translate(0, 0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.4) translate(10px, -10px);
+    opacity: 0;
+  }
+}
+
+
+.quote-text {
+  font-size: 14px;
+  color: #eee;
+  margin-top: 16px;
+  font-style: italic;
+  text-align: right;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+
+@keyframes quoteFadeCycle {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
 
 /* ===================== MOBILE FRIENDLY ===================== */
 
@@ -1171,6 +1376,7 @@ mark {
 
 /* ===================== ART SIDEBAR ===================== */
     
+/* ---- Sidebar Container ---- */
 .arts-sidebar {
   position: relative;
   margin: 40px 0 20px 40px;
@@ -1184,6 +1390,7 @@ mark {
   box-shadow: 0 0 10px #00000060;
 }
 
+/* ---- Sidebar Button ---- */
 .sidebar-btn {
   display: flex;
   align-items: center;
@@ -1232,6 +1439,7 @@ mark {
 
 /* ===================== ART GALLERY ===================== */
 
+/* ---- Gallery Container ---- */
 .art-gallery {
   display: flex;
   flex-wrap: wrap;
@@ -1247,6 +1455,25 @@ mark {
   max-width: calc(100% - 240px);
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+}
+
+.arts-left {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+/* ---- Art Card ---- */
+
+.arts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 40px 40px 0;
+  border-radius: 0 0 20px 20px;
+  color: white;
+  animation: flyUpFadeIn 1s ease-out;
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 40%, #2b2b2b 100%);
+  align-items: flex-start;
 }
 
 .art-card {
@@ -1282,23 +1509,123 @@ mark {
   margin-top: 6px;
 }
 
-.arts-container {
+
+/* ===================== ART POPUP ===================== */
+
+/* ---- Popup Container ---- */
+#art-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 40px 40px 40px 0;
-  border-radius: 0 0 20px 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  vertical-align: middle;
+}
+
+
+/* ---- Popup Navigation Arrows ---- */
+.popup-nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.popup-nav.left {
+  left: 0;
+}
+
+.popup-nav.right {
+  right: 0;
+}
+
+.popup-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 100vh;
+  font-size: 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
   color: white;
-  animation: flyUpFadeIn 1s ease-out;
-  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 40%, #2b2b2b 100%);
-  align-items: flex-start;
+  cursor: pointer;
+  z-index: 10000; /* cao hơn cả popup */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
 }
 
-.arts-left {
-  width: 220px;
-  flex-shrink: 0;
+.popup-nav:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
 }
 
+/* ---- Popup Content ---- */
+.art-popup-content {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+}
+
+/* ---- Close Button ---- */
+.art-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 10;
+}
+
+/* ---- Art Info Section ---- */
+.art-popup-info {
+  margin-top: 15px;
+  color: #eee;
+  font-family: 'Georgia', serif;
+}
+
+.owner-link {
+  text-decoration: none;          
+  color: #66ccff;
+  font-weight: bold;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.owner-link::before {
+  content: "✦ ";
+  color: #8affc1;
+  font-weight: normal;
+  margin-right: 2px;
+}
+
+.owner-link:hover {
+  color: #ffffff;
+}
+
+.art-popup-content img {
+  max-width: 100%;
+  max-height: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px #00e6ff;
+}
+
+
+
+/* ===================== ART PAGINATION ===================== */
+
+/* ---- Pagination Controls ---- */
 .arts-pagination-controls {
   width: 100%;
   display: flex;
@@ -1342,119 +1669,3 @@ mark {
   font-weight: bold;
   font-size: 14px;
 }
-
-
-
-/* ===================== ART POPUP ===================== */
-
-#art-popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  vertical-align: middle;
-}
-
-
-
-.art-popup-content {
-  background: #1a1a1a;
-  padding: 20px;
-  border-radius: 12px;
-  max-width: 90%;
-  max-height: 90%;
-  overflow: auto;
-  position: relative;
-  text-align: center;
-  display: inline-block;
-}
-
-
-
-.art-popup-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  transition: color 0.3s;
-  z-index: 10;
-}
-
-.art-popup-content img {
-  max-width: 100%;
-  max-height: 500px;
-  border-radius: 10px;
-  box-shadow: 0 0 12px #00e6ff;
-}
-
-.art-popup-info {
-  margin-top: 15px;
-  color: #eee;
-  font-family: 'Georgia', serif;
-}
-
-.popup-nav {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 80px;
-  height: 100vh;
-  font-size: 48px;
-  background: rgba(255, 255, 255, 0.05);
-  border: none;
-  color: white;
-  cursor: pointer;
-  z-index: 10000; /* cao hơn cả popup */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, color 0.3s;
-}
-
-.popup-nav:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.popup-nav.left {
-  left: 0;
-}
-
-.popup-nav.right {
-  right: 0;
-}
-
-.popup-nav:disabled {
-  opacity: 0.2;
-  cursor: not-allowed;
-}
-
-
-
-
-
-.owner-link {
-  text-decoration: none;          
-  color: #66ccff;
-  font-weight: bold;
-  transition: color 0.3s;
-  position: relative;
-}
-
-.owner-link::before {
-  content: "✦ ";
-  color: #8affc1;
-  font-weight: normal;
-  margin-right: 2px;
-}
-
-.owner-link:hover {
-  color: #ffffff;
-}
-
