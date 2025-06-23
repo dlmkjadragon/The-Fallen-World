@@ -1,3 +1,5 @@
+// ===================== PAGE NAVIGATION ===================== //
+
 function showSection(id) {
   console.log("Switching to section:", id);
   const sections = document.querySelectorAll('.page-section');
@@ -26,7 +28,6 @@ function showSection(id) {
 }
 
 }
-
 
 function switchTab(tabId) {
   const tabs = document.querySelectorAll('.tab-content');
@@ -132,6 +133,9 @@ function switchTab(tabId) {
 }
 
 
+// ===================== MUSIC PLAYER ===================== //
+
+// ---- Playback Controls ---- //
 function togglePlay(id, btn, skipReset = false) {
   const allAudios = document.querySelectorAll('audio');
   const audio = document.getElementById(id);
@@ -200,21 +204,6 @@ function togglePlay(id, btn, skipReset = false) {
   }
 }
 
-
-function increaseVolume(id) {
-  const audio = document.getElementById(id);
-  if (audio && audio.volume < 1) {
-    audio.volume = Math.min(1, audio.volume + 0.1);
-  }
-}
-
-function decreaseVolume(id) {
-  const audio = document.getElementById(id);
-  if (audio && audio.volume > 0) {
-    audio.volume = Math.max(0, audio.volume - 0.1);
-  }
-}
-
 function seekForward(id) {
   const audio = document.getElementById(id);
   audio.currentTime += 5;
@@ -264,16 +253,70 @@ function toggleRepeat(id, btn) {
 }
 
 
-  function formatTime(seconds) {
-  if (isNaN(seconds)) return '00:00';
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+// ---- Volume & Tempo ---- //
+function increaseVolume(id) {
+  const audio = document.getElementById(id);
+  if (audio && audio.volume < 1) {
+    audio.volume = Math.min(1, audio.volume + 0.1);
+  }
 }
 
+function decreaseVolume(id) {
+  const audio = document.getElementById(id);
+  if (audio && audio.volume > 0) {
+    audio.volume = Math.max(0, audio.volume - 0.1);
+  }
+}
+
+function setupMusicListeners() {
+  document.querySelectorAll('.seek-bar').forEach(seekBar => {
+    seekBar.addEventListener('input', function () {
+      const audioId = 'audio-' + this.id.split('-')[1];
+      const audio = document.getElementById(audioId);
+      if (audio && audio.duration) {
+        const percent = parseFloat(this.value);
+        audio.currentTime = (percent / 100) * audio.duration;
+      }
+    });
+  });
+
+  document.querySelectorAll('.volume-bar').forEach(bar => {
+    const audioId = bar.dataset.audioId;
+    const audio = document.getElementById(audioId);
+    const percentDisplay = document.getElementById(`volume-percent-${audioId.split('-')[1]}`);
+
+    if (audio) {
+      bar.addEventListener('input', function () {
+        const vol = parseFloat(this.value);
+        audio.volume = vol;
+        if (percentDisplay) percentDisplay.textContent = `${Math.round(vol * 100)}%`;
+      });
+
+      audio.addEventListener('volumechange', function () {
+        bar.value = audio.volume.toFixed(2);
+        if (percentDisplay) percentDisplay.textContent = `${Math.round(audio.volume * 100)}%`;
+      });
+    }
+  });
+
+  document.querySelectorAll('.tempo-bar').forEach(bar => {
+    const audioId = bar.dataset.audioId;
+    const audio = document.getElementById(audioId);
+    const display = document.getElementById(`tempo-value-${audioId.split('-')[1]}`);
+
+    if (audio) {
+      bar.addEventListener('input', function () {
+        const rate = parseFloat(this.value);
+        audio.playbackRate = rate;
+        if (display) display.textContent = `${Math.round(rate * 100)}%`;
+      });
+    }
+  });
+}
 
 let currentIndex = 0;
 
+// ---- Auto Play Next ---- //
 function setupAutoNext(audioId) {
   const audio = document.getElementById(audioId);
   if (!audio) return;
@@ -293,12 +336,21 @@ function setupAutoNext(audioId) {
   });
 }
 
+// ---- Time Utility ---- //
+function formatTime(seconds) {
+  if (isNaN(seconds)) return '00:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+
+// ===================== FRIENDS CAROUSEL =====================
 
 function renderFriendCarousel() {
   const track = document.getElementById("friend-carousel-track");
   if (!track) return;
 
-  // Xóa cũ
   while (track.firstChild) {
     track.removeChild(track.firstChild);
   }
@@ -315,7 +367,6 @@ function renderFriendCarousel() {
     const div = document.createElement("div");
     div.classList.add("friend-avatar-3d");
 
-    // Reset animation đúng cách
     requestAnimationFrame(() => {
       div.classList.add("animate-friend");
     });
@@ -361,18 +412,216 @@ function nextFriend3D() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  renderFriendCarousel(); 
-  showSection('home');
+// ===================== ART GALLERY ===================== //
+
+// ---- Render Gallery ---- //
+let currentArtCategory = "Show All";
+let currentArtIndex = -1;
+let sortedArtsData = [];
+let filteredArtsData = [];
+let currentArtPage = 1;
+const artsPerPage = 10;
+let currentVisibleArts = [];
+
+function renderArtsSection() {
+  const container = document.getElementById("art-gallery");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  filteredArtsData = sortedArtsData.filter(art =>
+    currentArtCategory === "Show All" || art.category === currentArtCategory
+  );
+  const totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
+  if (currentArtPage > totalPages) {
+    currentArtPage = 1;
+}
+
+  const start = (currentArtPage - 1) * artsPerPage;
+  const end = start + artsPerPage;
+  const currentPageData = filteredArtsData.slice(start, end);
+  currentVisibleArts = currentPageData;
+
+
+  currentPageData.forEach(art => {
+    container.insertAdjacentHTML("beforeend", `
+      <div class="art-card"
+        data-category="${art.category}"
+        data-title="${art.title}"
+        data-character="${art.character}"
+        data-owner="${art.owner?.name || ''}">
+        <img src="${art.image}" alt="${art.alt}" loading="lazy">
+        <div class="art-title">${art.title}</div>
+      </div>
+    `);
+
+    const lastCard = container.lastElementChild;
+    lastCard.addEventListener("click", () => {
+      showArtPopup(art);
+    });
+  });
+
+  renderPaginationControls();
+}
+
+function renderPaginationControls() {
+  const pagination = document.getElementById("arts-pagination");
+  if (!pagination) return;
+
+  let totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
+  if (totalPages === 0) totalPages = 1;
+  pagination.innerHTML = "";
+
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "← Previous";
+  prevBtn.disabled = currentArtPage === 1;
+  prevBtn.onclick = () => {
+    currentArtPage--;
+    renderArtsSection();
+  };
+
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next →";
+  nextBtn.disabled = currentArtPage === totalPages;
+  nextBtn.onclick = () => {
+    currentArtPage++;
+    renderArtsSection();
+  };
+
+  const pageInfo = document.createElement("span");
+  pageInfo.textContent = `Page ${currentArtPage} of ${totalPages}`;
+  pageInfo.style.margin = "0 12px";
+  pageInfo.style.color = "#b0e0e6";
+
+  pagination.appendChild(prevBtn);
+  pagination.appendChild(pageInfo);
+  pagination.appendChild(nextBtn);
+}
+
+
+// ---- Art Interactions ---- //
+function showArtPopup(art) {
+  const index = filteredArtsData.findIndex(a => a.fullImage === (art.fullImage || art.image));
+  currentArtIndex = index;
+
+  const fullImg = document.getElementById("popup-full-img");
+  fullImg.src = art.fullImage || art.image;
+  fullImg.onload = () => {
+    adjustCloseButtonColor(fullImg);
+  };
+
+  document.getElementById("popup-character").textContent = art.character || "Unnamed";
+  document.getElementById("popup-date").textContent = art.date || "???";
+
+  const owner = art.owner;
+  const ownerLink = document.getElementById("popup-owner");
+  if (owner && owner.name && owner.link) {
+    ownerLink.href = owner.link;
+    ownerLink.textContent = owner.name;
+  } else {
+    ownerLink.textContent = "Unknown";
+    ownerLink.removeAttribute("href");
+  }
+
+  document.getElementById("prev-art-btn").disabled = index <= 0;
+  document.getElementById("next-art-btn").disabled = index >= filteredArtsData.length - 1;
+
+  document.getElementById("art-popup").style.display = "flex";
+}
+
+function showPrevArt() {
+  if (currentArtIndex > 0) {
+    currentArtIndex--;
+    showArtPopup(filteredArtsData[currentArtIndex]);
+  }
+}
+
+function showNextArt() {
+  if (currentArtIndex < artsData.length - 1) {
+    currentArtIndex++;
+    showArtPopup(filteredArtsData[currentArtIndex]);
+  }
+}
+
+
+function closeArtPopup() {
+  document.getElementById("art-popup").style.display = "none";
+}
+
+document.querySelectorAll(".sidebar-btn").forEach(b => {
+  const category = b.textContent.trim();
+  if (category === currentArtCategory) {
+    b.classList.add("active");
+  } else {
+    b.classList.remove("active");
+  }
+});
+
+function adjustCloseButtonColor(img) {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  let r = 0, g = 0, b = 0;
+  const length = data.length / 4;
+
+  for (let i = 0; i < data.length; i += 4) {
+    r += data[i];
+    g += data[i + 1];
+    b += data[i + 2];
+  }
+
+  r /= length;
+  g /= length;
+  b /= length;
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  const closeBtn = document.querySelector(".art-popup-close");
+  closeBtn.style.color = brightness > 140 ? "#111" : "#fff";
+}
+
+
+// ---- Sidebar Category Filter ---- //
+document.querySelectorAll(".sidebar-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+  const category = btn.textContent.trim();
+  currentArtCategory = category;
+  currentArtPage = 1;
+
+  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+  filteredArtsData = sortedArtsData.filter(art =>
+    currentArtCategory === "Show All" || art.category === currentArtCategory
+  );
+
+  renderArtsSection();
+
+  const searchInput = document.getElementById("arts-search");
+  if (searchInput && searchInput.value.trim() !== "") {
+    const event = new Event("input", { bubbles: true });
+    searchInput.dispatchEvent(event);
+  }
+
+  document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+});
+});
+
+document.getElementById("art-popup").addEventListener("click", function (e) {
+  if (e.target === this) {
+    closeArtPopup();
+  }
 });
 
 
-
-
-
-
-
-
+// ===================== SEARCH FUNCTIONALITY ===================== //
 document.addEventListener("input", function (e) {
   if (!e.target.classList.contains("search-input")) return;
 
@@ -487,52 +736,7 @@ if (filteredArtsData.length === 0) {
 });
 
 
-function setupMusicListeners() {
-  document.querySelectorAll('.seek-bar').forEach(seekBar => {
-    seekBar.addEventListener('input', function () {
-      const audioId = 'audio-' + this.id.split('-')[1];
-      const audio = document.getElementById(audioId);
-      if (audio && audio.duration) {
-        const percent = parseFloat(this.value);
-        audio.currentTime = (percent / 100) * audio.duration;
-      }
-    });
-  });
-
-  document.querySelectorAll('.volume-bar').forEach(bar => {
-    const audioId = bar.dataset.audioId;
-    const audio = document.getElementById(audioId);
-    const percentDisplay = document.getElementById(`volume-percent-${audioId.split('-')[1]}`);
-
-    if (audio) {
-      bar.addEventListener('input', function () {
-        const vol = parseFloat(this.value);
-        audio.volume = vol;
-        if (percentDisplay) percentDisplay.textContent = `${Math.round(vol * 100)}%`;
-      });
-
-      audio.addEventListener('volumechange', function () {
-        bar.value = audio.volume.toFixed(2);
-        if (percentDisplay) percentDisplay.textContent = `${Math.round(audio.volume * 100)}%`;
-      });
-    }
-  });
-
-  document.querySelectorAll('.tempo-bar').forEach(bar => {
-    const audioId = bar.dataset.audioId;
-    const audio = document.getElementById(audioId);
-    const display = document.getElementById(`tempo-value-${audioId.split('-')[1]}`);
-
-    if (audio) {
-      bar.addEventListener('input', function () {
-        const rate = parseFloat(this.value);
-        audio.playbackRate = rate;
-        if (display) display.textContent = `${Math.round(rate * 100)}%`;
-      });
-    }
-  });
-}
-
+// ===================== CLOCK ===================== //
 
 function updateClock() {
   const timeEl = document.getElementById("clock-time");
@@ -563,6 +767,9 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock(); // initial call
 
+
+// ===================== ERROR HANDLING ===================== //
+
 function showErrorFallback(message) {
   const fallback = document.getElementById('error-fallback');
   const msgBox = document.getElementById('error-message');
@@ -575,215 +782,116 @@ function showErrorFallback(message) {
   msgBox.textContent = message;
 }
 
-let currentArtCategory = "Show All";
-let currentArtIndex = -1;
-let sortedArtsData = [];
-let filteredArtsData = [];
-let currentArtPage = 1;
-const artsPerPage = 10;
-let currentVisibleArts = [];
-
-function renderArtsSection() {
-  const container = document.getElementById("art-gallery");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-  filteredArtsData = sortedArtsData.filter(art =>
-    currentArtCategory === "Show All" || art.category === currentArtCategory
-  );
-  const totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
-  if (currentArtPage > totalPages) {
-    currentArtPage = 1;
-}
-
-  const start = (currentArtPage - 1) * artsPerPage;
-  const end = start + artsPerPage;
-  const currentPageData = filteredArtsData.slice(start, end);
-  currentVisibleArts = currentPageData;
 
 
-  currentPageData.forEach(art => {
-    container.insertAdjacentHTML("beforeend", `
-      <div class="art-card"
-        data-category="${art.category}"
-        data-title="${art.title}"
-        data-character="${art.character}"
-        data-owner="${art.owner?.name || ''}">
-        <img src="${art.image}" alt="${art.alt}" loading="lazy">
-        <div class="art-title">${art.title}</div>
-      </div>
-    `);
-
-    const lastCard = container.lastElementChild;
-    lastCard.addEventListener("click", () => {
-      showArtPopup(art);
-    });
-  });
-
-  renderPaginationControls();
-}
-
-function renderPaginationControls() {
-  const pagination = document.getElementById("arts-pagination");
-  if (!pagination) return;
-
-  let totalPages = Math.ceil(filteredArtsData.length / artsPerPage);
-  if (totalPages === 0) totalPages = 1;
-  pagination.innerHTML = "";
-
-  const prevBtn = document.createElement("button");
-  prevBtn.textContent = "← Previous";
-  prevBtn.disabled = currentArtPage === 1;
-  prevBtn.onclick = () => {
-    currentArtPage--;
-    renderArtsSection();
-  };
-
-  const nextBtn = document.createElement("button");
-  nextBtn.textContent = "Next →";
-  nextBtn.disabled = currentArtPage === totalPages;
-  nextBtn.onclick = () => {
-    currentArtPage++;
-    renderArtsSection();
-  };
-
-  const pageInfo = document.createElement("span");
-  pageInfo.textContent = `Page ${currentArtPage} of ${totalPages}`;
-  pageInfo.style.margin = "0 12px";
-  pageInfo.style.color = "#b0e0e6";
-
-  pagination.appendChild(prevBtn);
-  pagination.appendChild(pageInfo);
-  pagination.appendChild(nextBtn);
-}
-
-
-document.querySelectorAll(".sidebar-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-  const category = btn.textContent.trim();
-  currentArtCategory = category;
-  currentArtPage = 1;
-
-  sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-  filteredArtsData = sortedArtsData.filter(art =>
-    currentArtCategory === "Show All" || art.category === currentArtCategory
-  );
-
-  renderArtsSection();
-  
-
-  const searchInput = document.getElementById("arts-search");
-  if (searchInput && searchInput.value.trim() !== "") {
-    const event = new Event("input", { bubbles: true });
-    searchInput.dispatchEvent(event);
-  }
-
-  document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-});
-
-});
-
-function showArtPopup(art) {
-  const index = filteredArtsData.findIndex(a => a.fullImage === (art.fullImage || art.image));
-  currentArtIndex = index;
-
-  const fullImg = document.getElementById("popup-full-img");
-  fullImg.src = art.fullImage || art.image;
-  fullImg.onload = () => {
-    adjustCloseButtonColor(fullImg);
-  };
-
-  document.getElementById("popup-character").textContent = art.character || "Unnamed";
-  document.getElementById("popup-date").textContent = art.date || "???";
-
-  const owner = art.owner;
-  const ownerLink = document.getElementById("popup-owner");
-  if (owner && owner.name && owner.link) {
-    ownerLink.href = owner.link;
-    ownerLink.textContent = owner.name;
-  } else {
-    ownerLink.textContent = "Unknown";
-    ownerLink.removeAttribute("href");
-  }
-
-  document.getElementById("prev-art-btn").disabled = index <= 0;
-  document.getElementById("next-art-btn").disabled = index >= filteredArtsData.length - 1;
-
-  document.getElementById("art-popup").style.display = "flex";
-}
-
-
-function showPrevArt() {
-  if (currentArtIndex > 0) {
-    currentArtIndex--;
-    showArtPopup(filteredArtsData[currentArtIndex]);
-  }
-}
-
-function showNextArt() {
-  if (currentArtIndex < artsData.length - 1) {
-    currentArtIndex++;
-    showArtPopup(filteredArtsData[currentArtIndex]);
-  }
-}
-
-
-
-
-function closeArtPopup() {
-  document.getElementById("art-popup").style.display = "none";
-}
-
-document.querySelectorAll(".sidebar-btn").forEach(b => {
-  const category = b.textContent.trim();
-  if (category === currentArtCategory) {
-    b.classList.add("active");
-  } else {
-    b.classList.remove("active");
-  }
-});
-
-function adjustCloseButtonColor(img) {
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-
-  let r = 0, g = 0, b = 0;
-  const length = data.length / 4;
-
-  for (let i = 0; i < data.length; i += 4) {
-    r += data[i];
-    g += data[i + 1];
-    b += data[i + 2];
-  }
-
-  r /= length;
-  g /= length;
-  b /= length;
-
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
-  const closeBtn = document.querySelector(".art-popup-close");
-  closeBtn.style.color = brightness > 140 ? "#111" : "#fff";
-}
-
-document.getElementById("art-popup").addEventListener("click", function (e) {
-  // Nếu click đúng vào phần nền tối (không phải ảnh hoặc nội dung)
-  if (e.target === this) {
-    closeArtPopup();
-  }
-});
+// ===================== UTILS ===================== //
 
 function highlight(text, keyword) {
   const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
 }
+
+// ===================== INIT ===================== //
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderFriendCarousel(); 
+  showSection('home');
+});
+
+// ===================== LOADING PROGRESS ANIMATION ===================== //
+const fill = document.getElementById("progress-fill");
+const dot = document.getElementById("progress-dot");
+const loadingPercentText = document.getElementById("loading-percent");
+const quote = document.getElementById("quote-text");
+const screen = document.getElementById("loading-screen");
+
+const quotes = [
+  "- Fallen to the Mythical -",
+  "- Whisper of the Unknown -",
+  "- Awakened from Stardust -",
+  "- Severed by Silence -",
+  "- Echoes of Eternity -"
+];
+
+let quoteOrder = [];
+let quoteIndex = 0;
+
+// Fisher–Yates Shuffle
+function shuffleQuotes() {
+  quoteOrder = [...quotes];
+  for (let i = quoteOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [quoteOrder[i], quoteOrder[j]] = [quoteOrder[j], quoteOrder[i]];
+  }
+  quoteIndex = 0;
+}
+
+function showNextQuote() {
+  quote.style.opacity = 0;
+
+  setTimeout(() => {
+    if (quoteIndex >= quoteOrder.length) {
+      shuffleQuotes(); 
+    }
+
+    quote.textContent = quoteOrder[quoteIndex++];
+    quote.style.transition = "opacity 1.2s ease";
+    quote.style.opacity = 1;
+
+    setTimeout(showNextQuote, 4500); 
+  }, 500); 
+}
+
+// Start quote rotation
+shuffleQuotes();
+showNextQuote();
+
+
+
+// ==== Animate progress from 0 → 100% over 5s ====
+const totalLoadingTime = 10000; // ⏳ 10s
+let loadingStart = performance.now();
+
+function animateProgressBar(timestamp) {
+  const elapsed = timestamp - loadingStart;
+  const progress = Math.min(elapsed / totalLoadingTime, 1); // 🔄 tính theo 10s
+  const percent = Math.floor(progress * 100);
+
+  fill.style.width = percent + "%";
+  dot.style.left = `${percent}%`;
+  loadingPercentText.textContent = percent + "%";
+
+  if (progress < 1) {
+    requestAnimationFrame(animateProgressBar);
+  } else {
+
+    setTimeout(() => {
+      screen.style.transition = "opacity 1s ease";
+      screen.style.opacity = 0;
+
+      document.body.classList.add("ready-to-reveal");
+      document.body.classList.add("show-animation");
+
+      setTimeout(() => screen.remove(), 1000); // remove from DOM
+      if (typeof startWebsite === "function") startWebsite();
+    }, 400);
+  }
+}
+requestAnimationFrame(animateProgressBar);
+
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) {
+      loadingScreen.style.opacity = "0";
+      loadingScreen.style.transition = "opacity 0.8s ease";
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+        document.body.style.opacity = "1";
+        document.body.style.transform = "translateY(0)";
+      }, 800);
+    }
+  }, 10000); 
+});
+
