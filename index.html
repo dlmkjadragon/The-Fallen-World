@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="icon" href="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99376054_grX.png">
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
 
   <meta property="og:title" content="Legendary World">
@@ -15,12 +16,53 @@
   <meta property="og:type" content="website">
 
 </head>
+
+ <!-- ========== LOADING ========== -->
+  <div id="loading-screen">
+  <img src="img/dlmkja-intro.png" id="loading-bg" alt="Background Art">
+
+  <div class="loading-overlay"></div>
+
+  <div class="loading-lower-container">
+    <div class="loading-frame">
+      <div class="loading-bar-glow"></div>
+      <div class="loading-text-zone">
+        <div id="loading-label">
+          <span class="loading-word">L</span>
+          <span class="loading-word">O</span>
+          <span class="loading-word">A</span>
+          <span class="loading-word">D</span>
+          <span class="loading-word">I</span>
+          <span class="loading-word">N</span>
+          <span class="loading-word">G</span>
+          <span id="loading-percent">0%</span>
+          <span class="loading-dots">
+            <span>.</span><span>.</span><span>.</span><span>.</span><span>.</span>
+          </span>
+        </div>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+        <div class="progress-dot" id="progress-dot">
+          <div class="star-icon"></div>
+          <div class="sparkle"></div>
+          <div class="sparkle"></div>
+          <div class="sparkle"></div>
+        </div>
+        </div>
+
+      <div class="quote-text" id="quote-text">- Fallen to the Mythical -</div>
+    </div>
+  </div>
+
+  </div>
 <body>
+
 
   <!-- ========== CLOCK ========== -->
   <div class="floating-clock" id="floating-clock">
-  <div class="clock-time" id="clock-time">00:00:00</div>
-  <div class="clock-date" id="clock-date">Jan 1, Sunday</div>
+    <div class="clock-time" id="clock-time">00:00:00</div>
+    <div class="clock-date" id="clock-date">Jan 1, Sunday</div>
   </div>
 
   <!-- ========== NAVIGATION ========== -->
@@ -33,15 +75,11 @@
     <a onclick="showSection('favorite')"><i class="fas fa-square-poll-vertical"></i><span>Favorite Vote</span></a>
   </div>
 
-
-
   <!-- ========== HEADER ========== -->
   <div class="header">
     <h1>Legendary World</h1>     
     <p class="header-quote">"The World We Once Belonged To"</p>     
-</div>
-
-
+  </div>
 
   <!-- ========== HOME SECTION ========== -->
   <div id="home" class="page-section active">
@@ -139,13 +177,8 @@
 
           </div>
 
-
-
-
         <!-- Friends Box -->
         <h3 class="info-title">FRIENDS</h3>
-        
-
         <div class="friends-carousel-3d">
           <button class="carousel-btn left" onclick="prevFriend3D()">&#10094;</button>
 
@@ -249,10 +282,9 @@
 
   <!-- ========== ARTS SECTION ========== -->
   <div id="arts" class="page-section">
-  <!-- Giống như intro-container ở #home -->
   <div class="arts-container">
     <input type="text" id="arts-search" class="search-input" placeholder="Search artworks by title, character, or owner..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
-    <!-- Sidebar đặt bên trái -->
+
     <div class="arts-left">
       <div class="arts-sidebar">
         <button class="sidebar-btn active">Show All</button>
@@ -267,9 +299,7 @@
       </div>
     </div>
     
-    <!-- Khu vực content tranh -->
     <div class="art-gallery" id="art-gallery">
-  <!-- Cards sẽ được JS render tại đây -->
     </div>
    
 
@@ -281,7 +311,6 @@
 <!-- Art Popup -->
 <div id="art-popup" style="display: none;">
 
-  <!-- Hai nút nằm ngoài content -->
   <button class="popup-nav left" id="prev-art-btn" onclick="showPrevArt()">‹</button>
   <button class="popup-nav right" id="next-art-btn" onclick="showNextArt()">›</button>
 
@@ -306,8 +335,6 @@
           style="border-radius: 12px; overflow: hidden;"></iframe>
 </div>
 
-
-
   <!-- ========== STORY SECTION ========== -->
   <div id="story" class="page-section">
     <h2 style="color: white;">Story</h2>
@@ -330,7 +357,7 @@
 
   <!-- ===== ERROR FALLBACK ===== -->
   <div id="error-fallback" style="display:none; padding: 40px; text-align: center; color: #ff4d4d;">
-    <h2>⚠️ Oops!</h2>
+    <h2>Sorry for the inconvenience, it might drop :3</h2>
   <p id="error-message">The section you're looking for doesn't exist.</p>
   </div>
 
