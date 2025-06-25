@@ -26,10 +26,8 @@ function showSection(id) {
   filteredArtsData = [...sortedArtsData];
   renderArtsSection();
 }
-
-  if (id === "characters") {
-  renderCharacterCategories("all");
-}
+  
+  if (id === "characters") renderCharactersSection();
 
 }
 
@@ -1182,59 +1180,81 @@ moon.addEventListener("click", () => {
 });
 
 
-function renderCharacterCategories() {
-  const container = document.getElementById("character-gallery");
-  if (!container) return;
-  container.innerHTML = "";
+// ===================== CHARACTERS ===================== //
 
-  characterCategories.forEach(cat => {
-    // wrapper cho từng category (Fallen, Spring...)
-    const categoryBlock = document.createElement("div");
-    categoryBlock.className = "character-category";
+function renderCharactersSection() {
+  const sidebar = document.querySelector(".characters-sidebar");
+  const container = document.getElementById("characters-gallery");
+  if (!sidebar || !container) return;
 
-    const catTitle = document.createElement("div");
-    catTitle.className = "category-title";
-    catTitle.textContent = cat.category;
-    categoryBlock.appendChild(catTitle);
+  sidebar.innerHTML = "";
+  characterCategories.forEach((cat, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "char-sidebar-btn";
+    btn.innerHTML = `<i class="fas ${cat.icon}" style="margin-right: 8px;"></i> ${cat.category}`;
+    if (idx === 0) btn.classList.add("active");
 
-    cat.factions.forEach(faction => {
-      const factionBlock = document.createElement("div");
-      factionBlock.className = "faction-block";
-
-      const banner = document.createElement("img");
-      banner.className = "faction-banner";
-      banner.src = faction.banner;
-      banner.alt = faction.name;
-      factionBlock.appendChild(banner);
-
-      const desc = document.createElement("p");
-      desc.className = "faction-description";
-      desc.textContent = faction.description;
-      factionBlock.appendChild(desc);
-
-      const grid = document.createElement("div");
-      grid.className = "character-grid";
-
-      faction.characters.forEach(char => {
-        const card = document.createElement("a");
-        card.className = "character-card";
-        card.href = char.link;
-        card.target = "_blank";
-        card.style.backgroundImage = `url('${char.image}')`;
-        card.innerHTML = `
-          <div class="char-name-overlay">
-            <div class="char-name">${char.name}</div>
-            <div class="char-title">${char.title}</div>
-            <div class="char-icon"><i class="${char.icon}"></i></div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      factionBlock.appendChild(grid);
-      categoryBlock.appendChild(factionBlock);
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".char-sidebar-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderFactions(cat.factions, container);
     });
 
-    container.appendChild(categoryBlock);
+    sidebar.appendChild(btn);
+  });
+
+  renderFactions(characterCategories[0].factions, container);
+}
+
+function renderFactions(factions, container) {
+  container.innerHTML = "";
+
+  factions.forEach(faction => {
+    // Render faction banner with overlay
+    const bannerDiv = document.createElement("div");
+    bannerDiv.className = "faction-banner";
+    bannerDiv.innerHTML = `
+      <img src="${faction.banner}" alt="${faction.name}" loading="lazy">
+      <div class="faction-overlay">
+        <h3>${faction.name}</h3>
+        <p>${faction.description}</p>
+      </div>
+    `;
+    container.appendChild(bannerDiv);
+
+    // Render characters
+    faction.characters.forEach(c => {
+      const charDiv = document.createElement("div");
+      charDiv.className = "character-card flip-card";
+      charDiv.innerHTML = `
+        <div class="flip-inner">
+          <div class="character-front">
+            <img src="${c.image}" alt="${c.name}" loading="lazy">
+            <div class="character-text">
+              <div class="character-name"><i class="${c.icon}"></i> ${c.name}</div>
+              <div class="character-title">${c.title}</div>
+              <div class="character-species">+ Species: ${c.species} +</div>
+            </div>
+          </div>
+          <div class="character-back">
+            <p class="character-description">${c.description}</p>
+            <a href="${c.link}" target="_blank" class="character-link-button">
+              LINK >>
+            </a>
+          </div>
+        </div>
+      `;
+      charDiv.addEventListener("click", () => {
+        charDiv.classList.toggle("flipped");
+      });
+      
+      container.appendChild(charDiv);
+    });
+
+    const hr = document.createElement("hr");
+    hr.className = "faction-hr";
+    container.appendChild(hr);
+
   });
 }
+
