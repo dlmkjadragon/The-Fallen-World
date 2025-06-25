@@ -375,6 +375,24 @@ const characterCategories = [
       },
 
       {
+        name: "The Spirit Shrine",
+        banner: "https://res.cloudinary.com/dh5ovya91/image/upload/v1750870238/100002724_ZigJX9wT7p5VIZL_avzstp.jpg",
+        description: "Hidden deep within the misty woods of Moon, the Spirit Shrine is a sacred place dedicated to the ancient god Inari, founder of the nation. Rows of crimson torii gates guide the faithful through silence and shadow, leading them to a place where spirits dwell and prayers linger. Though the god has long passed, the shrine remains alive through tradition, offerings of tofu, and the quiet devotion of those who still believe. Here, even the wind seems to whisper, Kon kon... Inari watches.",
+        characters: [
+          {
+            name: "Reisune Okami",
+            title: "- The Spirit Flame Fox -",
+            image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1750869979/100002724_ZigJX9wT7p5VIZL_pyrciy.png",
+            link: "https://toyhou.se/30062028.reisune-alexrina",
+            icon: "fa-brands fa-gripfire",
+            description: "Reisune is a fox adopted by the Alexrina family. She is playful, cheerful, and surprisingly hardworking. Above all, she holds an unwavering belief in Inari Okami, and becomes fiercely upset if anyone dares to disrespect the deity.",
+            species: "Kitsune (Nine-Tailed Fox)"
+          },
+
+        ]
+      },
+
+      {
         name: "Residents",
         banner: "https://res.cloudinary.com/dh5ovya91/image/upload/v1750859704/100002724_ZigJX9wT7p5VIZL_xx3sst.jpg",
         description: "Residents are just residents",
