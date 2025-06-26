@@ -466,7 +466,7 @@ const characterCategories = [
             species: "Dragon"
           },
           {
-            name: "Ethan Alexrina",
+            name: "Ethan Yurei",
             title: "- The Water Dragon -",
             image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1750861703/100002724_ZigJX9wT7p5VIZL_hg1w2w.png",
             link: "https://toyhou.se/26107000.ethan-yurei",
