@@ -87,7 +87,7 @@
     <a onclick="showSection('home')"><i class="fas fa-house"></i><span>Home</span></a>
     <a onclick="showSection('arts')"><i class="fas fa-pencil"></i><span>Arts</span></a>
     <a onclick="showSection('characters')"><i class="fas fa-dragon"></i><span>Characters</span></a>
-    <a onclick="showSection('story')"><i class="fas fa-book-quran"></i><span>Story</span></a>
+    <a onclick="showSection('story')"><i class="fas fa-book-quran"></i><span>Library</span></a>
     <a onclick="showSection('video')"><i class="fas fa-photo-film"></i><span>Video</span></a>
     <a onclick="showSection('favorite')"><i class="fas fa-square-poll-vertical"></i><span>Favorite Vote</span></a>
   </div>
@@ -211,7 +211,7 @@
   <div id="tab-music" class="tab-content">
   <h2>Favorite Music</h2>
 
-    <input type="text" class="search-input" placeholder="Search this music list..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
+    <input type="text" id="music-search" class="search-input" placeholder="Search this music list..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
 
       <div class="music-section">
 
@@ -275,7 +275,7 @@
       <!-- Tab: Social Media -->
     <div id="tab-social" class="tab-content">
         <h2>Social Media</h2>
-      <input type="text" id="social-search" placeholder="Search social media..." 
+      <input type="text" class="search-input" id="social-search" placeholder="Search social media..." 
         style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
       <div class="social-row">
      </div>
@@ -347,12 +347,15 @@
   <!-- ========== CHARACTERS SECTION ========== -->
 <div id="characters" class="page-section">
   <div class="characters-container">
+     <input type="text" id="character-search" class="search-input" placeholder="Search factions or characters..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
     <!-- LEFT: Sidebar -->
     <div class="characters-left">
       <div class="characters-sidebar">
         <!-- Category buttons will be inserted here -->
       </div>
     </div>
+
+    
 
     <!-- RIGHT: Main gallery/faction area -->
     <div class="characters-gallery" id="characters-gallery">
@@ -363,10 +366,18 @@
 
 
   <!-- ========== STORY SECTION ========== -->
-  <div id="story" class="page-section">
-    <h2 style="color: white;">Story</h2>
-    <p style="color: white;">Once upon a time...</p>
-  </div>
+  <section id="story" class="page-section">
+    <div class="container-split">
+      <!-- (sau này nếu có sidebar thì đặt bên đây) -->
+      
+      <div class="story-main-content">
+        <div id="story-content" class="story-gallery">
+            <h1>COMING SOON...</h1>
+          <!-- Nội dung story sẽ được render tại đây -->
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ========== VIDEO SECTION ========== -->
   <div id="video" class="page-section">
