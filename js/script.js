@@ -10,6 +10,17 @@ function showSection(id) {
     selected.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  document.querySelectorAll('.page-section').forEach(section => {
+    if (section.id !== id) {
+      const inputs = section.querySelectorAll('.search-input');
+      inputs.forEach(input => {
+        if (input.id === "music-search") return;
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    }
+  });
+
     const fallback = document.getElementById('error-fallback');
     if (fallback) fallback.style.display = 'none';
   } else {
@@ -21,25 +32,62 @@ function showSection(id) {
   const activeLink = Array.from(links).find(link => link.getAttribute('onclick')?.includes(id));
   if (activeLink) activeLink.classList.add('active');
 
+
+  if (id === "home") {
+    switchTab("tab-intro");
+  }
+
+
   if (id === "arts") {
-  currentArtCategory = "Show All";
-  filteredArtsData = [...sortedArtsData];
-  renderArtsSection();
-}
+    currentArtCategory = "Show All";
+    currentArtPage = 1;
+
+    sortedArtsData = [...artsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+    filteredArtsData = [...sortedArtsData];  // Show All = full list
+
+    renderArtsSection();
+
+    document.querySelectorAll(".sidebar-btn").forEach(btn => {
+      const text = btn.textContent.trim();
+      btn.classList.toggle("active", text === "Show All");
+    });
+
+    document.getElementById("art-gallery").scrollTop = 0;
+  }
   
   if (id === "characters") renderCharactersSection();
+
+  if (id === "story") {
+  // sau này gọi hàm renderStory() tại đây
+}
 
 }
 
 
 function switchTab(tabId) {
   const tabs = document.querySelectorAll('.tab-content');
-  tabs.forEach(tab => tab.classList.remove('active'));
+
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+
+    const inputs = tab.querySelectorAll('.search-input');
+    inputs.forEach(input => {
+      if (input.id === "music-search") return;
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
 
   const selected = document.getElementById(tabId);
   if (selected) selected.classList.add('active');
 
-  // New: mark the active button
+  if (tabId === "tab-music") {
+  const input = document.getElementById("music-search");
+  if (input && input.value.trim() !== "") {
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+}
+
   const buttons = document.querySelectorAll('.tab-menu button');
   buttons.forEach(btn => btn.classList.remove('active'));
   const activeButton = Array.from(buttons).find(btn =>
@@ -48,48 +96,56 @@ function switchTab(tabId) {
   if (activeButton) activeButton.classList.add('active');
 
   if (tabId === "tab-music") {
-  renderDataSection({
-    data: musicList,
-    containerSelector: ".music-section",
-    template: (m) => `
-      <div class="music-card">
-        <div class="music-info">
-          <h3>${m.title}</h3>
-          <p>${m.artist}</p>
-          <img src="${m.cover}" class="music-cover" id="cover-${m.id}" style="display: none;" loading="lazy">
-          <div class="now-playing">Now Playing...</div>
-        </div>
-        <audio id="audio-${m.id}" preload="none" data-src="${m.src}"></audio>
-        <input type="range" value="0" class="seek-bar" id="seek-${m.id}">
-        <div class="time-display" id="time-${m.id}">00:00 / 00:00</div>
-        <div class="music-controls">
-          <button onclick="seekBackward('audio-${m.id}')">⏮</button>
-          <button onclick="togglePlay('audio-${m.id}', this)">▶</button>
-          <button onclick="seekForward('audio-${m.id}')">⏭</button>
-          <button onclick="restartAudio('audio-${m.id}')">⏹</button>
-          <button class="repeat-toggle" onclick="toggleRepeat('audio-${m.id}', this)">🔁</button>
-        </div>
-        <div class="volume-controls">
-          <button onclick="decreaseVolume('audio-${m.id}')">🔉</button>
-          <input type="range" min="0" max="1" step="0.01" value="1"
-                 class="volume-bar" data-audio-id="audio-${m.id}">
-          <span class="volume-percent" id="volume-percent-${m.id}">100%</span>
-          <button onclick="increaseVolume('audio-${m.id}')">🔊</button>
-        </div>
-        <div class="tempo-controls">
-          <span class="tempo-icon">⏱</span>
-          <input type="range" min="0.5" max="2" step="0.1" value="1"
-                 class="tempo-bar" data-audio-id="audio-${m.id}">
-          <span class="tempo-value" id="tempo-value-${m.id}">100%</span>
-        </div>
-      </div>
-    `
-  });
+  const musicContainer = document.querySelector(".music-section");
 
-  musicList.forEach(m => setupAutoNext(`audio-${m.id}`));
+  const hasRendered = musicContainer && musicContainer.dataset.rendered === "true";
+  if (!hasRendered) {
+    renderDataSection({
+      data: musicList,
+      containerSelector: ".music-section",
+      template: (m) => `
+        <div class="music-card">
+          <div class="music-info">
+            <h3>${m.title}</h3>
+            <p>${m.artist}</p>
+            <img src="${m.cover}" class="music-cover" id="cover-${m.id}" style="display: none;" loading="lazy">
+            <div class="now-playing">Now Playing...</div>
+          </div>
+          <audio id="audio-${m.id}" preload="none" data-src="${m.src}"></audio>
+          <input type="range" value="0" class="seek-bar" id="seek-${m.id}">
+          <div class="time-display" id="time-${m.id}">00:00 / 00:00</div>
+          <div class="music-controls">
+            <button onclick="seekBackward('audio-${m.id}')">⏮</button>
+            <button onclick="togglePlay('audio-${m.id}', this)">▶</button>
+            <button onclick="seekForward('audio-${m.id}')">⏭</button>
+            <button onclick="restartAudio('audio-${m.id}')">⏹</button>
+            <button class="repeat-toggle" onclick="toggleRepeat('audio-${m.id}', this)">🔁</button>
+          </div>
+          <div class="volume-controls">
+            <button onclick="decreaseVolume('audio-${m.id}')">🔉</button>
+            <input type="range" min="0" max="1" step="0.01" value="1"
+                  class="volume-bar" data-audio-id="audio-${m.id}">
+            <span class="volume-percent" id="volume-percent-${m.id}">100%</span>
+            <button onclick="increaseVolume('audio-${m.id}')">🔊</button>
+          </div>
+          <div class="tempo-controls">
+            <span class="tempo-icon">⏱</span>
+            <input type="range" min="0.5" max="2" step="0.1" value="1"
+                  class="tempo-bar" data-audio-id="audio-${m.id}">
+            <span class="tempo-value" id="tempo-value-${m.id}">100%</span>
+          </div>
+        </div>
+      `
+    });
 
-  setupMusicListeners(); 
+    musicContainer.dataset.rendered = "true";
+
+    filteredMusicList = [...musicList];
+    musicList.forEach(m => setupAutoNext(`audio-${m.id}`));
+    setupMusicListeners();
+  }
 }
+
 
   if (tabId === "tab-social") {
    renderDataSection({
@@ -145,7 +201,7 @@ function togglePlay(id, btn, skipReset = false) {
 
   if (!skipReset) {
     allAudios.forEach(a => {
-      if (a !== audio) {
+      if (a !== audio && a.id !== "bg-rain") {
         a.pause();
         a.currentTime = 0;
 
@@ -318,6 +374,7 @@ function setupMusicListeners() {
 }
 
 let currentIndex = 0;
+let filteredMusicList = [];
 
 // ---- Auto Play Next ---- //
 function setupAutoNext(audioId) {
@@ -328,11 +385,11 @@ function setupAutoNext(audioId) {
     if (audio.loop) return;
 
     const currentId = audioId.replace("audio-", "");
-    const currentIndex = musicList.findIndex(m => m.id === currentId);
+    const currentIndex = filteredMusicList.findIndex(m => m.id === currentId);
     if (currentIndex === -1) return;
 
-    const nextIndex = (currentIndex + 1) % musicList.length;
-    const nextId = musicList[nextIndex].id;
+    const nextIndex = (currentIndex + 1) % filteredMusicList.length;
+    const nextId = filteredMusicList[nextIndex].id;
 
     const nextBtn = document.querySelector(`button[onclick="togglePlay('audio-${nextId}', this)"]`);
     if (nextBtn) togglePlay(`audio-${nextId}`, nextBtn, false);
@@ -609,6 +666,7 @@ document.querySelectorAll(".sidebar-btn").forEach(btn => {
   );
 
   renderArtsSection();
+  document.getElementById("art-gallery").scrollTop = 0;
 
   const searchInput = document.getElementById("arts-search");
   if (searchInput && searchInput.value.trim() !== "") {
@@ -650,39 +708,135 @@ document.addEventListener("input", function (e) {
     }
   });
 
+
   if (firstMatch) {
     firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 });
 
 document.addEventListener("input", function (e) {
-  if (e.target.id !== "social-search") return;
+  if (e.target.id !== "music-search") return;
 
-  const query = e.target.value.toLowerCase();
-  const cards = document.querySelectorAll("#tab-social .social-card");
+  const query = e.target.value.toLowerCase().trim();
+  const cards = document.querySelectorAll(".music-card");
+  const container = document.querySelector(".music-section");
+  let found = false;
+
+  filteredMusicList = [];
 
   cards.forEach(card => {
-    const content = card.textContent.toLowerCase();
-    if (content.includes(query)) {
+    const titleEl = card.querySelector("h3");
+    const artistEl = card.querySelector("p");
+
+    const title = titleEl?.textContent || "";
+    const artist = artistEl?.textContent || "";
+    const text = (title + " " + artist).toLowerCase();
+
+    if (query === "" || text.includes(query)) {
       card.style.display = "";
+      found = true;
+
+      titleEl.innerHTML = highlight(title, query);
+      artistEl.innerHTML = highlight(artist, query);
+
+      const audioId = card.querySelector("audio")?.id?.replace("audio-", "");
+      if (audioId) filteredMusicList.push({ id: audioId });
+
     } else {
       card.style.display = "none";
+      titleEl.innerHTML = title;
+      artistEl.innerHTML = artist;
     }
   });
+
+  const noMsg = container.querySelector("#no-music-result");
+  if (!found) {
+    if (!noMsg) {
+      const msg = document.createElement("p");
+      msg.id = "no-music-result";
+      msg.className = "no-result-message";
+      msg.textContent = "No musics found.";
+      container.prepend(msg);
+    }
+  } else if (noMsg) {
+    noMsg.remove();
+  }
 });
+
+
+
+document.getElementById("social-search").addEventListener("input", function () {
+  const query = this.value.toLowerCase().trim();
+  const cards = document.querySelectorAll(".social-card");
+  const container = document.querySelector(".social-row");
+  let found = false;
+
+  cards.forEach(card => {
+    const platformEl = card.querySelector(".platform");
+    const name = platformEl?.textContent || "";
+
+    if (query === "" || name.toLowerCase().includes(query)) {
+      card.style.display = "";
+      found = true;
+      platformEl.innerHTML = highlight(name, query);
+    } else {
+      card.style.display = "none";
+      platformEl.innerHTML = name;
+    }
+  });
+
+  const noMsg = container.querySelector("#no-social-result");
+  if (!found) {
+    if (!noMsg) {
+      const msg = document.createElement("p");
+      msg.id = "no-social-result";
+      msg.className = "no-result-message";
+      msg.textContent = "No social medias found.";
+      container.appendChild(msg);
+    }
+  } else if (noMsg) {
+    noMsg.remove();
+  }
+});
+
 
 
 document.addEventListener("input", function (e) {
   if (e.target.id !== "blacklist-search") return;
 
-  const query = e.target.value.toLowerCase();
+  const query = e.target.value.toLowerCase().trim();
   const cards = document.querySelectorAll("#tab-blacklist .blacklist-item");
+  const container = document.querySelector(".blacklist-list");
 
+  let found = false;
   cards.forEach(card => {
-    const content = card.textContent.toLowerCase();
-    card.style.display = content.includes(query) ? "" : "none";
+    const nameEl = card.querySelector(".blacklist-name");
+    const name = nameEl?.textContent || "";
+
+    if (query === "" || name.toLowerCase().includes(query)) {
+      card.style.display = "";
+      found = true;
+      nameEl.innerHTML = highlight(name, query);
+    } else {
+      card.style.display = "none";
+      nameEl.innerHTML = name;
+    }
   });
+
+  const noMsg = container.querySelector("#no-blacklist-result");
+  if (!found) {
+    if (!noMsg) {
+      const msg = document.createElement("p");
+      msg.id = "no-blacklist-result";
+      msg.className = "no-result-message";
+      msg.textContent = "No blacklist entries found.";
+      container.appendChild(msg);
+    }
+  } else if (noMsg) {
+    noMsg.remove();
+  }
 });
+
 
 
 document.addEventListener("input", function (e) {
@@ -794,6 +948,7 @@ function showErrorFallback(message) {
 // ===================== UTILS ===================== //
 
 function highlight(text, keyword) {
+  if (!keyword || keyword.trim() === "") return text; 
   const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
 }
@@ -1185,9 +1340,13 @@ moon.addEventListener("click", () => {
 function renderCharactersSection() {
   const sidebar = document.querySelector(".characters-sidebar");
   const container = document.getElementById("characters-gallery");
-  if (!sidebar || !container) return;
+  const searchInput = document.getElementById("character-search");
+  if (!sidebar || !container || !searchInput) return;
 
   sidebar.innerHTML = "";
+
+  let currentCategoryIndex = 0;
+
   characterCategories.forEach((cat, idx) => {
     const btn = document.createElement("button");
     btn.className = "char-sidebar-btn";
@@ -1197,64 +1356,90 @@ function renderCharactersSection() {
     btn.addEventListener("click", () => {
       document.querySelectorAll(".char-sidebar-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      renderFactions(cat.factions, container);
+      currentCategoryIndex = idx;
+      renderFactions(cat.factions, container, searchInput.value.trim());
+      container.scrollTop = 0;
     });
 
     sidebar.appendChild(btn);
   });
 
-  renderFactions(characterCategories[0].factions, container);
+  searchInput.addEventListener("input", () => {
+    const text = searchInput.value.trim();
+    renderFactions(characterCategories[currentCategoryIndex].factions, container, text);
+    container.scrollTop = 0;
+  });
+
+  renderFactions(characterCategories[0].factions, container, "");
 }
 
-function renderFactions(factions, container) {
+
+function renderFactions(factions, container, searchText = "") {
   container.innerHTML = "";
 
-  factions.forEach(faction => {
-    // Render faction banner with overlay
-    const bannerDiv = document.createElement("div");
-    bannerDiv.className = "faction-banner";
-    bannerDiv.innerHTML = `
-      <img src="${faction.banner}" alt="${faction.name}" loading="lazy">
-      <div class="faction-overlay">
-        <h3>${faction.name}</h3>
-        <p>${faction.description}</p>
-      </div>
-    `;
-    container.appendChild(bannerDiv);
+  const oldMsg = document.getElementById("no-character-result");
+  if (oldMsg) oldMsg.remove();
 
-    // Render characters
-    faction.characters.forEach(c => {
-      const charDiv = document.createElement("div");
-      charDiv.className = "character-card flip-card";
-      charDiv.innerHTML = `
-        <div class="flip-inner">
-          <div class="character-front">
-            <img src="${c.image}" alt="${c.name}" loading="lazy">
-            <div class="character-text">
-              <div class="character-name"><i class="${c.icon}"></i> ${c.name}</div>
-              <div class="character-title">${c.title}</div>
-              <div class="character-species">+ Species: ${c.species} +</div>
-            </div>
-          </div>
-          <div class="character-back">
-            <p class="character-description">${c.description}</p>
-            <a href="${c.link}" target="_blank" class="character-link-button">
-              LINK >>
-            </a>
-          </div>
+  let hasContent = false;
+
+  factions.forEach(faction => {
+    const factionMatch = faction.name.toLowerCase().includes(searchText.toLowerCase());
+    const filteredCharacters = faction.characters.filter(c =>
+      c.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    if (searchText === "" || factionMatch || filteredCharacters.length > 0) {
+      hasContent = true; 
+
+      const bannerDiv = document.createElement("div");
+      bannerDiv.className = "faction-banner";
+      bannerDiv.innerHTML = `
+        <img src="${faction.banner}" alt="${faction.name}" loading="lazy">
+        <div class="faction-overlay">
+          <h3>${highlight(faction.name, searchText)}</h3>
+          <p>${faction.description}</p>
         </div>
       `;
-      charDiv.addEventListener("click", () => {
-        charDiv.classList.toggle("flipped");
+      container.appendChild(bannerDiv);
+
+      const charsToShow = factionMatch || searchText === "" ? faction.characters : filteredCharacters;
+
+      charsToShow.forEach(c => {
+        const charDiv = document.createElement("div");
+        charDiv.className = "character-card flip-card";
+        charDiv.innerHTML = `
+          <div class="flip-inner">
+            <div class="character-front">
+              <img src="${c.image}" alt="${c.name}" loading="lazy">
+              <div class="character-text">
+                <div class="character-name"><i class="${c.icon}"></i> ${highlight(c.name, searchText)}</div>
+                <div class="character-title">${c.title}</div>
+                <div class="character-species">+ Species: ${c.species} +</div>
+              </div>
+            </div>
+            <div class="character-back">
+              <p class="character-description">${c.description}</p>
+              <a href="${c.link}" target="_blank" class="character-link-button">LINK >></a>
+            </div>
+          </div>
+        `;
+        charDiv.addEventListener("click", () => {
+          charDiv.classList.toggle("flipped");
+        });
+        container.appendChild(charDiv);
       });
-      
-      container.appendChild(charDiv);
-    });
 
-    const hr = document.createElement("hr");
-    hr.className = "faction-hr";
-    container.appendChild(hr);
-
+      const hr = document.createElement("hr");
+      hr.className = "faction-hr";
+      container.appendChild(hr);
+    }
   });
-}
 
+  if (!hasContent) {
+    const msg = document.createElement("p");
+    msg.id = "no-character-result";
+    msg.className = "no-result-message";
+    msg.textContent = "No characters or factions found.";
+    container.appendChild(msg);
+  }
+}
