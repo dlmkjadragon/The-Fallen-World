@@ -3,7 +3,7 @@ const blacklistList = [
     name: "Yelloe Foxie",
     reason: "Pedophile, pervert (and proudly so-because what’s worse than being a creep? Being one openly), disrespectful, disloyal (a traitor who switches sides just to hurt people), shameless, dishonest, and a cyberbully. Also a textbook snowflake and desperate for attention. You’re not welcome here.",
     avatar: "img/blacklist/yelloe.jpg",
-    link: "https://www.facebook.com/1tyAy7Zkmlllla"
+    link: "https://www.facebook.com/yelloefoxie7749"
   },
   {
     name: "Penny The Fox",
