@@ -58,7 +58,7 @@ function showSection(id) {
   if (id === "characters") renderCharactersSection();
 
   if (id === "story") {
-  // sau này gọi hàm renderStory() tại đây
+  renderLibraryHome();
 }
 
 }
@@ -1235,6 +1235,7 @@ document.addEventListener("DOMContentLoaded", startRainEffect);
 
 
 
+
 function drawStars() {
   const canvas = document.getElementById("star-canvas");
   if (!canvas) return;
@@ -1443,3 +1444,5 @@ function renderFactions(factions, container, searchText = "") {
     container.appendChild(msg);
   }
 }
+
+// ===================== LIBRARY ===================== //
