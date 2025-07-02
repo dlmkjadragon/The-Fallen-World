@@ -26,7 +26,7 @@
 <body>
   <!-- ========== LOADING ========== -->
   <div id="loading-screen">
-  <img src="img/dlmkja-intro.png" id="loading-bg" alt="Background Art">
+  <img src="https://res.cloudinary.com/dh5ovya91/image/upload/v1750993213/dlmkja-intro_zdmxht.jpg" id="loading-bg" alt="Background Art">
 
   <canvas id="wind-canvas"></canvas>
   <div class="loading-overlay"></div>
@@ -366,18 +366,26 @@
 
 
   <!-- ========== STORY SECTION ========== -->
-  <section id="story" class="page-section">
-    <div class="container-split">
-      <!-- (sau này nếu có sidebar thì đặt bên đây) -->
-      
-      <div class="story-main-content">
-        <div id="story-content" class="story-gallery">
-            <h1>COMING SOON...</h1>
-          <!-- Nội dung story sẽ được render tại đây -->
+  <div id="story" class="page-section">
+    <div class="story-container" style="display: flex; gap: 20px;">
+      <!-- Search bar -->
+      <input type="text" id="story-search" class="search-input" placeholder="Search story categories..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
+
+      <!-- LEFT: Sidebar -->
+      <div class="story-left">
+        <div class="story-sidebar" id="story-sidebar">
+          <!-- Category buttons will be inserted here -->
         </div>
       </div>
+
+      <!-- RIGHT: Gallery / content area -->
+      <div id="story-sidebar" class="story-sidebar"></div>
+      <div id="story-gallery" class="story-gallery"></div>
+        <!-- Story content will be rendered here -->
+      </div>
     </div>
-  </section>
+  </div>
+
 
   <!-- ========== VIDEO SECTION ========== -->
   <div id="video" class="page-section">
@@ -415,6 +423,9 @@
 
   <!-- CHARACTERS Data Files -->
   <script src="js/characters-data.js"></script>
+
+  <!-- LIBRARY Data Files -->
+  <script src="js/library-data.js"></script>
   
   <!-- Main Logic -->
   <script src="js/script.js"></script>
