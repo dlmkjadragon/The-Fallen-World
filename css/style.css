@@ -135,7 +135,6 @@
 }
 
 
-
 #moon {
   position: fixed;
   top: 20px;
@@ -2208,24 +2207,84 @@ mark {
 
 /* ===================== LIBRARY ===================== */
 
-.story-gallery {
+.story-container {
+  display: block;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 40px 40px 0;
+  border-radius: 0 0 20px 20px;
+  color: white;
+  animation: flyUpFadeIn 1s ease-out;
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 40%, #2b2b2b 100%);
+  align-items: flex-start;
+}
+
+.story-left {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.story-sidebar {
+  position: relative;
+  margin: 40px 0 20px 40px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
+  max-width: 220px;
   padding: 20px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 40%, #2b2b2b 100%);
+  box-shadow: 0 0 10px #00000060;
 }
 
-.story-main-content {
-  flex: 1;
+.story-sidebar-btn {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0f7ff;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s, transform 0.2s, color 0.3s;
+  text-align: left;
+}
+
+.story-sidebar-btn:hover {
+  background: linear-gradient(to right, #66ccff, #8affc1);
+  transform: translateX(6px);
+  color: white;
+}
+
+.story-sidebar-btn.active {
+  background: linear-gradient(to right, #ffffff, #66ccff);
+  color: #1d689a;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border: 1px solid #00cccc;
+  transition: 0.3s;
+}
+
+.story-sidebar-btn.active::before {
+  background: linear-gradient(45deg, #1d689a, #236262);
+}
+
+.story-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; 
+  align-items: flex-start;    
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 15px;
+  flex-grow: 1; 
+  flex-shrink: 1;
+  flex-basis: 0;
+  max-width: calc(100% - 240px);
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
-  padding-right: 20px;
-  max-height: 100vh;
 }
-
-#story {
-  background-color: #101010;
-  color: #e0e0e0;
-  height: 100vh;
-  overflow: hidden;
-}
-
