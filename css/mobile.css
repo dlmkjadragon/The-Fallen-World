@@ -1,0 +1,81 @@
+/* ===================== MOBILE FRIENDLY ===================== */
+
+@media screen and (max-width: 768px) {
+  .intro-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .intro-left, .intro-right {
+    min-width: 100%;
+  }
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .art-card {
+    width: 100%;
+  }
+  .tab-menu button {
+    font-size: 0; /* Ẩn chữ */
+  }
+  .tab-menu button i {
+    font-size: 18px;
+  }
+  .arts-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    margin: 20px auto;
+    gap: 10px;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .remember-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+  .remember-column {
+    width: 280px;
+  }
+
+  .remember-center-circle {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .tab-menu button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  .intro-container {
+    gap: 20px;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .characters-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    margin: 20px auto;
+    gap: 10px;
+  }
+
+  .character-tab {
+    font-size: 0; /* ẩn chữ */
+    padding: 8px 12px;
+  }
+
+  .character-tab i {
+    font-size: 18px;
+  }
+}
