@@ -10,7 +10,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700&family=Roboto:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
   <link rel="icon" href="https://f2.toyhou.se/file/f2-toyhou-se/thumbnails/99376054_grX.png">
+
+  <!-- ========== Cascading Style Sheets (CSS) =========== -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animation.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/loading.css">
+  <link rel="stylesheet" href="css/introduction.css">
+  <link rel="stylesheet" href="css/carousel.css">
+  <link rel="stylesheet" href="css/blacklist.css">
+  <link rel="stylesheet" href="css/arts.css">
+  <link rel="stylesheet" href="css/characters.css">
+  <link rel="stylesheet" href="css/musics.css">
+  <link rel="stylesheet" href="css/social.css">
+  <link rel="stylesheet" href="css/library.css">
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
 
 
@@ -25,7 +40,7 @@
  
 <body>
   <!-- ========== LOADING ========== -->
-  <div id="loading-screen">
+  <!--<div id="loading-screen">
   <img src="https://res.cloudinary.com/dh5ovya91/image/upload/v1750993213/dlmkja-intro_zdmxht.jpg" id="loading-bg" alt="Background Art">
 
   <canvas id="wind-canvas"></canvas>
@@ -74,7 +89,7 @@
   <canvas id="cloud-canvas"></canvas> 
   <canvas id="rain-canvas"></canvas> 
 
-  <audio id="bg-rain" src="https://res.cloudinary.com/dh5ovya91/video/upload/v1750705184/rainsound_qzzumz.mp3" loop preload="auto"></audio>
+  <audio id="bg-rain" src="https://res.cloudinary.com/dh5ovya91/video/upload/v1750705184/rainsound_qzzumz.mp3" loop preload="auto"></audio>-->
 
   <!-- ========== CLOCK ========== -->
   <div class="floating-clock" id="floating-clock">
@@ -365,26 +380,40 @@
 </div>
 
 
-  <!-- ========== STORY SECTION ========== -->
-  <div id="story" class="page-section">
-    <div class="story-container" style="display: flex; gap: 20px;">
-      <!-- Search bar -->
-      <input type="text" id="story-search" class="search-input" placeholder="Search story categories..." style="width: 100%; padding: 8px; margin-bottom: 20px; border-radius: 8px; background: #222; color: #fff; border: none;">
+  <!-- ========== LIBRARY SECTION ========== -->
+  <!-- LIBRARY SECTION -->
+    <div id="story" class="page-section">
+      <div class="story-container library-container"> <!-- thêm class library-container -->
+        <input type="text" id="story-search"  
+              class="search-input" placeholder="Search stories..."
+              style="width:100%; padding:8px; margin-bottom:20px; border-radius:8px; background:#222; color:#fff; border:none;">
 
-      <!-- LEFT: Sidebar -->
-      <div class="story-left">
-        <div class="story-sidebar" id="story-sidebar">
-          <!-- Category buttons will be inserted here -->
+        <!-- Sidebar -->
+        <div class="story-left">
+          <div class="story-sidebar" id="library-sidebar"></div>
+        </div>
+
+        <!-- Gallery / Lists / Detail -->
+        <div class="story-gallery library-gallery">
+          <div id="library-card-list" class="library-card-grid"></div>
+          <div id="chapter-card-list" class="library-card-grid" style="display:none;"></div>
+
+          <div id="story-info" style="display:none;"></div>
+          <div id="chapter-detail" style="display:none;">
+            
+            <div class="chapter-header">
+              <h2 id="chapter-title"></h2>
+              <div class="lang-switch">
+                <img src="https://flagcdn.com/w20/gb.png" alt="English" onclick="switchLanguage('en')" class="lang-flag">
+                <img src="https://flagcdn.com/w20/vn.png" alt="Vietnamese" onclick="switchLanguage('vi')" class="lang-flag">
+              </div>
+            </div>
+            <hr class="chapter-divider">
+            <div id="chapter-text"></div>
+          </div>
         </div>
       </div>
-
-      <!-- RIGHT: Gallery / content area -->
-      <div id="story-sidebar" class="story-sidebar"></div>
-      <div id="story-gallery" class="story-gallery"></div>
-        <!-- Story content will be rendered here -->
-      </div>
     </div>
-  </div>
 
 
   <!-- ========== VIDEO SECTION ========== -->
@@ -409,27 +438,35 @@
 
 
   <!-- ========== JAVASCRIPT =========== -->
-  <!-- Core & Render Function -->
-  <script src="js/core-render.js"></script>
 
   <!-- HOME Data Files -->
-  <script src="js/friends-data.js"></script>
-  <script src="js/music-data.js"></script>
-  <script src="js/social-data.js"></script>
-  <script src="js/blacklist-data.js"></script>
+  <script src="js/data/friends-data.js"></script>
+  <script src="js/data/music-data.js"></script>
+  <script src="js/data/social-data.js"></script>
+  <script src="js/data/blacklist-data.js"></script>
 
   <!-- ARTS Data Files -->
-  <script src="js/arts-data.js"></script>
+  <script src="js/data/arts-data.js"></script>
 
   <!-- CHARACTERS Data Files -->
-  <script src="js/characters-data.js"></script>
+  <script src="js/data/characters-data.js"></script>
 
   <!-- LIBRARY Data Files -->
-  <script src="js/library-data.js"></script>
+  <script src="js/data/stories/crimson_sun.js"></script>
+  <script src="js/data/stories/eternal_winter.js"></script>
+  <script src="js/data/stories/dream_refused.js"></script>
+  <script src="js/data/stories/dreamcore_col.js"></script>
+  <script src="js/data/library-data.js"></script>
   
   <!-- Main Logic -->
-  <script src="js/script.js"></script>
-  
+  <script src="js/core/loading.js"></script>
+  <script src="js/core/search.js"></script>
+  <script src="js/core/carousel.js"></script>
+  <script src="js/core/music.js"></script>
+  <script src="js/core/arts.js"></script>
+  <script src="js/core/characters.js"></script>
+  <script src="js/core/library.js"></script>
+  <script src="js/core/script.js"></script>
 
 </body>
 </html>
