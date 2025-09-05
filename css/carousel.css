@@ -1,0 +1,186 @@
+/* ===================== FRIENDS CAROUSEL ===================== */
+
+/* ---- Carousel Layout ---- */
+.friends-carousel-3d {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.carousel-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #66ccff;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.carousel-btn:hover {
+  color: #00ced1;
+}
+
+.carousel-track-3d {
+  display: flex;
+  gap: 30px;
+  width: 360px;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: visible;
+}
+
+/* ---- Friends Avatar ---- */
+.friend-avatar-3d {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
+  filter: blur(1px);
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+.friend-avatar-3d.center {
+  transform: scale(1.2) translateY(10px);
+  opacity: 1;
+  filter: none;
+  z-index: 2;
+}
+
+.friend-avatar-3d.center img {
+  border: 3px solid #66ccff;
+  box-shadow: 0 0 12px #00e6ff;
+}
+
+.friend-avatar-3d img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.friend-avatar-3d.side:hover {
+  transform: scale(1.1);
+  filter: blur(0.5px);
+  opacity: 0.8;
+}
+
+/* ---- Friend Name ---- */
+.friend-avatar-3d .friend-name {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #66ccff;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.friend-avatar-3d.center .friend-name {
+  opacity: 1;
+}
+
+/* ---- Effects ---- */
+.friend-avatar-3d.animate-friend {
+  animation: slideIn 0.4s ease;
+}
+
+/* ===================== CAROUSEL MOBILE ===================== */
+@media (max-width: 768px) {
+  .friends-carousel-3d {
+    width: 100%;
+    padding: 0; /* bỏ padding để canh giữa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;   /* chặn thanh cuộn ngang */
+    overflow-y: visible;
+  }
+
+  .carousel-btn {
+    display: none;
+  }
+
+  .carousel-track-3d {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 70%; /* track hẹp lại => 2 ảnh bên bị cắt bớt */
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+
+  .friend-avatar-3d {
+    width: 65px;
+    height: 65px;
+    flex: 0 0 auto;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .friend-avatar-3d.center {
+    transform: scale(1.2); /* làm nổi bật */
+    z-index: 2;
+  }
+
+  .friend-avatar-3d.center .friend-name {
+    opacity: 1; /* ảnh ở giữa thì hiện tên */
+  }
+
+  .friend-avatar-3d img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .friend-avatar-3d .friend-name {
+    bottom: 100%;
+    left: 25%;
+    transform: translateX(-50%) translateY(9px);
+    margin-left: 54px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #66ccff;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 480px) {
+  .friend-avatar-3d {
+    width: 70px;
+    height: 70px;
+    padding: 8px;
+  }
+
+  .friend-avatar-3d img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-btn {
+    font-size: 24px;
+    padding: 4px 8px;
+  }
+
+  .carousel-track-3d {
+    width: 80%; /* màn nhỏ hơn thì rộng hơn tí */
+    gap: 10px;
+  }
+}
+
+

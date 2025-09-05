@@ -1,0 +1,379 @@
+/* ===================== MUSIC PLAYER ===================== */
+ 
+/* ---- Music Card ---- */
+.music-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.music-card.favorited {
+  position: relative;
+  overflow: visible;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(140px);
+    opacity: 0;
+  }
+}
+
+.music-card .snowflake {
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: snowFall linear forwards;
+  pointer-events: none;
+}
+
+.music-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  width: 250px;
+  color: #d4baff;
+  box-shadow: 0 0 10px #00000060;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  margin: 10px;
+  position: relative;
+  transition: box-shadow 0.4s ease, transform 0.3s;
+}
+
+.music-card.playing {
+  box-shadow: 0 0 20px #00e6ff, 0 0 10px #66ccff;
+  transform: scale(1.02);
+}
+
+/* ---- Music Info ---- */
+.music-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #28549a;
+}
+
+.music-info p {
+  margin: 4px 0 10px 0;
+  font-size: 14px;
+  color: #68aacb;
+}
+
+/* ---- Music Cover ---- */
+.music-cover {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.music-cover.show {
+  opacity: 1;
+  display: block !important;
+}
+
+/* ---- Status ---- */
+.now-playing {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: rgba(0, 206, 209, 0.2);
+  color: #66ccff;
+  font-size: 12px;
+  font-style: italic;
+  padding: 2px 6px;
+  border-radius: 8px;
+  display: none;
+}
+
+.music-card.playing .now-playing {
+  display: block;
+}
+
+/* ---- Music Control ---- */
+.music-controls button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.music-controls button:hover {
+  color: #00e6ff;
+}
+
+.music-controls button.repeat-toggle {
+  transition: color 0.3s;
+}
+.music-controls button.repeat-toggle:hover {
+  color: #00e6ff;
+}
+    
+/* ---- Seek Bar ---- */
+.seek-bar {
+  width: 100%;
+  margin: 10px 0;
+  appearance: none;
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+
+/* ---- Time ---- */
+.time-display {
+  font-size: 12px;
+  color: #b0e0e6;
+  margin-top: -6px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* ---- Volume ---- */
+.volume-controls {
+  margin-top: 10px;
+}
+
+.volume-controls button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.volume-controls button:hover {
+  color: #00e6ff;
+}
+
+.volume-bar {
+  width: 80px;
+  height: 4px;
+  background: #ddd;
+  border-radius: 3px;
+  appearance: none;
+  accent-color: #66ccff;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.volume-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #66ccff;
+  border: none;
+  box-shadow: 0 0 2px #000;
+}
+
+.volume-bar::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #66ccff;
+  border: none;
+}
+
+.volume-percent {
+  font-size: 12px;
+  color: #b0e0e6;
+  min-width: 36px;
+  text-align: left;
+}
+
+/* ---- Tempo ---- */
+.tempo-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #b0e0e6;
+}
+
+.tempo-icon {
+  margin-right: 8px;
+}
+
+.tempo-bar {
+  width: 80px;
+  height: 4px;
+  margin: 0 8px;
+  appearance: none;
+  background: #ddd;
+  border-radius: 3px;
+  accent-color: #66ccff;
+}
+
+.tempo-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #66ccff;
+  border: none;
+  box-shadow: 0 0 2px #000;
+}
+
+.tempo-value {
+  min-width: 36px;
+  text-align: left;
+}
+
+/* ---- Favorite Music ---- */
+.favorite-btn {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #555;
+  border-radius: 10px;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s;
+  margin-top: 12px;
+}
+
+.favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.favorite-btn.favorited {
+  border-color: #ffd700;
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.15);
+}
+
+
+/* ===================== MUSIC MOBILE ===================== */
+@media (max-width: 768px) {
+  .music-section {
+    gap: 12px;
+    padding: 0 10px;
+    justify-content: center;
+  }
+
+  .music-card {
+    width: 45%; /* 2 card mỗi hàng */
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .music-info h3 {
+    font-size: 14px;
+  }
+
+  .music-info p {
+    font-size: 12px;
+  }
+
+  .music-cover {
+    height: 100px; /* ảnh nhỏ hơn */
+  }
+
+  .music-controls button {
+    font-size: 16px;
+    margin: 0 3px;
+  }
+
+  .seek-bar,
+  .volume-bar,
+  .tempo-bar {
+    height: 3px;
+  }
+
+  .time-display,
+  .volume-percent,
+  .tempo-value {
+    font-size: 11px;
+  }
+
+  .favorite-btn {
+    font-size: 12px;
+    padding: 3px 8px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-card {
+    width: 100%; /* 1 card mỗi hàng */
+  }
+
+  .music-cover {
+    height: 90px;
+  }
+
+  .music-info h3 {
+    font-size: 13px;
+  }
+
+  .music-controls button {
+    font-size: 14px;
+  }
+}
+
+/* ===================== MUSIC MOBILE LANDSCAPE ===================== */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .music-section {
+    gap: 12px;
+    padding: 0 10px;
+    justify-content: center;
+  }
+
+  .music-card {
+    width: 45%;   /* giữ 2 card mỗi hàng, như mobile dọc */
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .music-info h3 {
+    font-size: 14px;
+  }
+
+  .music-info p {
+    font-size: 12px;
+  }
+
+  .music-cover {
+    height: 100px;
+  }
+
+  .music-controls button {
+    font-size: 16px;
+    margin: 0 3px;
+  }
+
+  .time-display,
+  .volume-percent,
+  .tempo-value {
+    font-size: 11px;
+  }
+
+  .volume-controls {
+    display: flex;
+    align-items: center;   /* canh dọc giữa */
+    justify-content: center; /* đưa toàn bộ ra giữa */
+    margin-top: 10px;
+  }
+
+  .favorite-btn {
+    font-size: 12px;
+    padding: 3px 8px;
+    margin-top: 8px;
+  }
+}

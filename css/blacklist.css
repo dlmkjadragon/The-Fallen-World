@@ -1,0 +1,94 @@
+/* ===================== BLACKLIST ===================== */
+
+/* ---- Blacklist Card ---- */
+.blacklist-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 0, 0, 0.05);
+  border-left: 4px solid #ff4d4d;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
+}
+
+/* ---- Avatar ---- */
+.blacklist-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 15px;
+  transition: transform 0.3s;
+  box-shadow: 0 0 6px rgba(255, 0, 0, 0.3);
+}
+
+.blacklist-avatar:hover img {
+  transform: scale(1.05);
+}
+
+/* ---- Text ---- */
+.blacklist-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blacklist-name {
+  font-weight: bold;
+  color: #ff6666;
+  font-size: 15px;
+}
+
+.blacklist-reason {
+  font-size: 13px;
+  color: #ffcccc;
+  margin-top: 3px;
+}
+
+@media (max-width: 480px) {
+  .blacklist-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .blacklist-avatar img {
+    margin: 0 0 8px 0;
+    width: 90px;
+    height: 90px;
+    display: block;
+  }
+
+  .blacklist-name {
+    font-size: 13px;
+  }
+
+  .blacklist-reason {
+    font-size: 11px;
+    text-align: left;
+  }
+}
+
+/* ===================== BLACKLIST MOBILE LANDSCAPE (COMPACT DESKTOP STYLE) ===================== */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .blacklist-item {
+    padding: 8px 10px;   /* nhỏ hơn */
+    margin-bottom: 10px;
+  }
+
+  .blacklist-avatar img {
+    width: 50px;   /* avatar nhỏ hơn */
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  .blacklist-name {
+    font-size: 13px;   /* chữ nhỏ */
+  }
+
+  .blacklist-reason {
+    font-size: 11px;
+  }
+}

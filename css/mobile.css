@@ -1,0 +1,197 @@
+/* ===================== MOBILE STYLES ===================== */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    flex-wrap: wrap;
+    padding: 6px 0;
+  }
+  .navbar a {
+    flex: 1 1 25%;   /* 4 icon mỗi hàng */
+    margin: 8px 0;
+    font-size: 11px;
+  }
+  .navbar a i {
+    font-size: 18px;
+  }
+
+  /* Header */
+  .header {
+    height: auto;
+    padding: 20px 10px;
+    flex-direction: column;
+  }
+  .header h1 {
+    font-size: 26px;
+  }
+  .header-quote {
+    font-size: 12px;
+    position: static;
+    margin-top: 5px;
+    text-align: center;
+  }
+
+  /* Clock */
+  .floating-clock {
+    position: fixed;   /* giữ cố định */
+    top: 5px;          /* dính sát trên */
+    left: 5px;         /* dính sát trái */
+    bottom: auto;      /* bỏ không cho ép xuống */
+    right: auto;
+    transform: none;   /* bỏ dịch chuyển */
+    padding: 6px 10px;
+    border-radius: 8px;
+    z-index: 9999;     /* nổi lên trên navbar */
+  }
+
+  .clock-time {
+    font-size: 20px;
+  }
+
+  .clock-date {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Navbar: 2 icon mỗi hàng */
+  .navbar a {
+    flex: 1 1 45%;
+  }
+}
+
+/* ===================== LOADING MOBILE ===================== */
+@media (max-width: 768px) {
+  .loading-frame {
+    padding: 15px 20px;   /* thu nhỏ padding */
+    border-radius: 16px 16px 0 0;
+  }
+  .loading-side-title .main-title {
+    font-size: 20px;      /* chữ nhỏ hơn */
+    letter-spacing: 1px;
+  }
+  .loading-text-zone {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .progress-track {
+    height: 8px;          /* thanh progress mỏng hơn */
+  }
+  .progress-dot {
+    width: 20px;
+    height: 20px;
+    top: -12px;           /* điều chỉnh vị trí */
+  }
+  .star-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .quote-text {
+    font-size: 12px;
+    text-align: center;   /* cho mobile dễ đọc */
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-side-title .main-title {
+    font-size: 16px;
+  }
+  .loading-text-zone {
+    font-size: 12px;
+  }
+  .quote-text {
+    font-size: 11px;
+  }
+}
+
+/* ===================== INTRODUCTION MOBILE ===================== */
+@media (max-width: 768px) {
+
+  .intro-left {
+    padding-top: 10px;
+    min-width: auto;
+  }
+
+  .intro-right {
+    padding-top: 0;
+    min-width: auto;
+  }
+
+  .intro-avatar {
+    width: 120px;
+    height: 120px;
+    border-width: 3px;
+  }
+
+  .avatar-caption {
+    font-size: 13px;
+  }
+
+  .intro-img-top {
+    width: 80px;
+    height: 80px;
+  }
+
+  .welcome-message {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .info-box-formatted {
+    padding: 15px 20px;
+  }
+
+  .info-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .label,
+  .value {
+    font-size: 12px;
+  }
+
+  .tab-menu button {
+    font-size: 13px;
+    padding: 5px 8px;
+  }
+
+  .tab-content {
+    padding: 15px;
+    max-height: none; /* tránh quá cao trên mobile */
+  }
+
+  .do-section, .dont-section,
+  .love-section, .hate-section {
+    min-width: 100%;
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .intro-img-top {
+    width: 70px;
+    height: 70px;
+  }
+
+  .welcome-message {
+    font-size: 12px;
+  }
+
+  .tab-menu button {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
+
+
