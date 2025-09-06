@@ -1,0 +1,130 @@
+/* ===================== ANIMATIONS ===================== */
+
+@keyframes flyUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes swayBackground {
+  0%   { transform: translateX(0px) scale(1.02); }
+  50%  { transform: translateX(-10px) scale(1.025); }
+  100% { transform: translateX(0px) scale(1.02); }
+}
+
+@keyframes gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes artGlowPulse {
+  0% {
+    box-shadow: 0 0 6px rgba(102, 204, 255, 0.2), 0 0 12px rgba(138, 255, 193, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(102, 204, 255, 0.6), 0 0 25px rgba(0, 230, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(102, 204, 255, 0.2), 0 0 12px rgba(138, 255, 193, 0.15);
+  }
+}
+
+@keyframes videoGlowPulse {
+  0% {
+    box-shadow: 0 0 6px rgba(255, 120, 120, 0.25), 0 0 12px rgba(200, 80, 80, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255, 100, 100, 0.5), 0 0 24px rgba(180, 60, 60, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(255, 120, 120, 0.25), 0 0 12px rgba(200, 80, 80, 0.2);
+  }
+}
+
+@keyframes popupGlowPulse {
+  0% {
+    box-shadow: 0 0 0px rgba(198, 151, 151, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(45, 108, 151, 0.5), 0 0 40px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(69, 27, 254, 0.2);
+  }
+}
+
+
+@keyframes avatarPulse {
+  0% {
+    box-shadow: 0 0 12px rgba(102, 204, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(102, 204, 255, 0.7), 0 0 35px rgba(0, 230, 255, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 12px rgba(102, 204, 255, 0.3);
+  }
+}
+
+@keyframes glowMoon {
+  from { filter: brightness(0.9); }
+  to   { filter: brightness(1.1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes spinStar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sparkleOut {
+  0% {
+    transform: scale(0.8) translate(0, 0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.4) translate(10px, -10px);
+    opacity: 0;
+  }
+}
+
+@keyframes quoteFadeCycle {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+@keyframes windMove {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}

@@ -1,0 +1,189 @@
+/* ===================== SOCIAL MEDIA ===================== */
+
+/* ---- General Layout ---- */
+.social-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.social-card {
+  flex: 1;
+  min-width: 250px;
+  background: #005f6a33;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #00000050;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  color: #d4baff;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.social-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 16px rgba(0, 206, 209, 0.6);
+}
+
+/* ---- Header ---- */
+.social-header {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.social-header .line {
+  height: 4px;
+  background: linear-gradient(to right, #66ccff, #00ced1);
+  border-radius: 4px;
+}
+
+.social-header .short {
+  width: 20px;
+}
+
+.social-header .long {
+  width: 60px;
+}
+
+/* ---- Icon and Avatar ---- */
+.social-icon-link {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px;
+  border: 4px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #e0ffc4, #ffffff, #00ced1) border-box;
+  transition: 0.3s;
+}
+
+.social-icon-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ---- Social Inform ---- */
+.social-text {
+  margin-top: 10px;
+}
+
+.social-text .platform {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #28549a;
+}
+
+.social-text .username {
+  font-size: 14px;
+  color: #66ccff;
+}
+
+.social-text .status {
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 6px;
+  color: #b0e0e6;
+}
+
+/* ---- Gradient style left/right ---- */
+.gradient-left .social-icon-link {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #8affc1, #ffffff, #0080ff) border-box;
+}
+
+.gradient-right .social-icon-link {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #66ccff, #ffffff, #00688b) border-box;
+}
+
+
+/* ===================== SOCIAL MOBILE ===================== */
+@media (max-width: 768px) {
+  .social-row {
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .social-card {
+    min-width: unset;
+    width: 90%; /* full width trên mobile */
+    padding: 15px;
+  }
+
+  .social-icon-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .social-text .platform {
+    font-size: 14px;
+  }
+
+  .social-text .username {
+    font-size: 13px;
+  }
+
+  .social-text .status {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .social-icon-img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .social-text .platform {
+    font-size: 13px;
+  }
+
+  .social-text .username {
+    font-size: 12px;
+  }
+}
+
+/* ===================== SOCIAL MOBILE LANDSCAPE ===================== */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .social-row {
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .social-card {
+    width: 90%;
+    min-width: unset;
+    padding: 15px;
+  }
+
+  .social-icon-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .social-text .platform {
+    font-size: 14px;
+  }
+
+  .social-text .username {
+    font-size: 13px;
+  }
+
+  .social-text .status {
+    font-size: 11px;
+  }
+}

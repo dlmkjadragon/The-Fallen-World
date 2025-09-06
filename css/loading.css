@@ -1,0 +1,333 @@
+/* ===================== LOADING ===================== */
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #000;
+}
+
+#loading-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  animation: swayBackground 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.loading-lower-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+
+.loading-frame {
+  width: 100%;
+  padding: 25px 60px;
+  background: radial-gradient(circle at center,rgba(0, 255, 255, 0.08),rgba(0, 0, 0, 0.6));
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), 0 0 60px rgba(0, 255, 255, 0.15), inset 0 -4px 12px rgba(0, 255, 255, 0.2);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.loading-side-title {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  color: white;
+  font-family: sans-serif;
+  z-index: 10;
+  text-align: center;
+  animation: flyUpFadeIn 1.2s ease-out;
+}
+
+.loading-side-title .main-title {
+  font-size: 30px;
+  line-height: 1.4;
+  font-weight: bold;
+  letter-spacing: 2px;
+  white-space: pre;
+}
+
+
+
+.loading-bar-glow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  width: 300px;
+  height: 6px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #fff, transparent 70%);
+  opacity: 0.3;
+  filter: blur(6px);
+}
+
+.loading-text-zone {
+  color: white;
+  font-family: 'Georgia', serif;
+  font-size: 20px;
+  letter-spacing: 5px;
+  margin-bottom: 12px;
+}
+
+#loading-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-start;
+}
+
+.loading-word {
+  font-size: 20px;
+}
+
+.loading-dots span {
+  font-size: 18px;
+  color: white;
+  animation: bounce 1.2s infinite;
+  display: inline-block;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+.loading-dots span:nth-child(4) { animation-delay: 0.6s; }
+.loading-dots span:nth-child(5) { animation-delay: 0.8s; }
+
+#wind-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  position: relative;
+  margin-top: 20px;
+  overflow: visible; 
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(to right, #ffffff, #00ffff);
+  transition: width 0.1s ease;
+}
+
+.progress-dot {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.star-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/616/616489.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: spinStar 3s linear infinite;
+  will-change: transform;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+
+
+.progress-dot .sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: sparkleOut 1s ease-out infinite;
+  filter: blur(1px);
+}
+
+.progress-dot .sparkle:nth-child(1) {
+  top: 10%;
+  left: 90%;
+  animation-delay: 0s;
+}
+
+.progress-dot .sparkle:nth-child(2) {
+  top: 50%;
+  left: 110%;
+  animation-delay: 0.3s;
+}
+
+.progress-dot .sparkle:nth-child(3) {
+  top: 80%;
+  left: 95%;
+  animation-delay: 0.6s;
+}
+
+
+.quote-text {
+  font-size: 14px;
+  color: #eee;
+  margin-top: 16px;
+  font-style: italic;
+  text-align: right;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#loading-oc-name {
+  position: absolute;
+  bottom: 150px;  
+  left: 50%;    
+  transform: translateX(-50%);
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-size: 50px;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  letter-spacing: 1px;
+  animation: inkFade 6s infinite;
+}
+
+@keyframes inkFade {
+  0%   { opacity: 0; filter: blur(6px); letter-spacing: 8px; }
+  60%  { opacity: 1; filter: blur(0); letter-spacing: 1px; }
+  100% { opacity: 1; filter: blur(0); letter-spacing: 1px; }
+}
+
+.skip-btn {
+  position: absolute; 
+  left: 59px;       
+  bottom: 13px;
+  padding: 6px 14px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #444, #222);
+  border: 1px solid #66ccff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.skip-btn:hover {
+  background: linear-gradient(135deg, #2f2f42, #1e1e28);
+  color: #80e0ff;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(102, 204, 255, 0.5);
+}
+
+.toggle-music {
+  position: absolute;
+  top: 20px;
+  right: 70px;
+  background: linear-gradient(135deg, #222, #444);
+  border: 1px solid #66ccff;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.toggle-music:hover {
+  background: linear-gradient(135deg, #2f2f42, #1e1e28);
+  color: #80e0ff;
+}
+
+#toggle-music-btn {
+  font-size: 0;
+}
+
+/* Khi bật nhạc */
+#toggle-music-btn::after {
+  content: "🔊 Enabled";
+  font-size: 15px;
+}
+
+/* Khi tắt nhạc */
+#toggle-music-btn.disabled::after {
+  content: "🔇Disabled";
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  #loading-screen{
+    overflow-x: hidden;
+  }
+  #loading-oc-name {
+    font-size: 25px;       /* chữ nhỏ lại */
+    max-width: 80%;        /* không bị tràn */
+    white-space: normal;   /* cho phép xuống dòng */
+  }
+}
+
+/* 📱 Mobile: chỉ hiển thị icon cho skip + toggle */
+@media (max-width: 768px) {
+  /* --- Skip --- */
+  .skip-btn {
+    font-size: 18px;
+    padding: 4px 6px;
+  }
+  .skip-btn::after {
+    content: "≫";    /* chỉ còn icon >> */
+    font-weight: bold;
+  }
+  .skip-btn span {
+    display: none;   /* ẩn chữ "Skip" */
+  }
+
+  /* --- Toggle Music --- */
+  #toggle-music-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    font-size: 0; /* ẩn chữ gốc */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #toggle-music-btn::after {
+    content: "🔊";   /* mặc định */
+    font-size: 20px;
+  }
+  #toggle-music-btn.disabled::after {
+    content: "🔇";   /* khi tắt */
+  }
+}
