@@ -1,0 +1,12 @@
+const loadingData = [
+    { name: "༚✧ Dlmkja Alexrina ✧༚", image: "https://f2.toyhou.se/file/f2-toyhou-se/images/99331501_gyxDJ18XrBDDk7Y.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152012/music/hz5r3y8ismgclppa7mwp.mp3" },
+    { name: "༚✧ Neisy Alexrina ✧༚",  image: "https://f2.toyhou.se/file/f2-toyhou-se/images/99334920_pU9khtIhPKZdGZ8.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757153124/music/u029dyosrwojrfxxuijh.mp3" },
+    { name: "༚✧ Akai Alexrina ✧༚",  image: "https://f2.toyhou.se/file/f2-toyhou-se/images/99333616_0mWa7j489ESCGuj.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757153416/music/y7mpvepajfrz5tft0tsn.mp3" },
+    { name: "༚✧ Elanie Alexrina ✧༚",   image: "https://f2.toyhou.se/file/f2-toyhou-se/images/99345826_nVLnerW7qet0gGb.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757153039/music/nsqppd0y2hsjo8wxkwad.mp3" },
+    { name: "༚✧ Bao Yi ✧༚", image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1757093537/99367988_MQRwreDqU8Z99Kn_1_ux8ds8.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152514/music/fbjlrubckn0zcukadngc.mp3" },
+    { name: "༚✧ Freezeira Alexrina ✧༚", image: "https://f2.toyhou.se/file/f2-toyhou-se/images/99370148_PjergW8l2QDkIG8.jpg", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152797/music/ve40d9sk8swvnkvzidyy.mp3" },
+    { name: "༚✧ Kai Alexrina ✧༚", image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1757093239/100137310_mwtMutAvVMJZLP6_1_jtocxa.jpg", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152927/music/ynhvnhp13orf0pq7vzuq.mp3" },
+    { name: "༚✧ M#n##w Justification ✧༚", image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1757093561/101762251_A4EpigbpYn7DIPv_1_k9aiio.jpg", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757153298/music/heb4hstpnfc2dopiajeh.mp3" },
+    { name: "༚✧ Winter Justification ✧༚", image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1757093564/99374964_P4prpSy6GuUDxAQ_1_ffgjiq.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152611/music/qwrjyshgi7t1febeuruw.mp3" },
+    { name: "༚✧ Snow Winter ✧༚", image: "https://res.cloudinary.com/dh5ovya91/image/upload/v1757093564/99376429_ahIxVUTGrHX6KcC_1_ttpmih.png", audio: "https://res.cloudinary.com/dh5ovya91/video/upload/v1757152310/music/x7gqohbp72i679by0n6x.mp3" },
+];
